@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOMBOLO — Electronic music promoter · label · mixes · Madrid</title>
+<meta name="description" content="Tombolo — promotora de música electrónica, sello discográfico y mixes. Madrid desde 2018.">
+
+<!-- ============================================================= -->
+<!--  Tipografía:                                                  -->
+<!--   · Space Grotesk → títulos grandes (con carácter)            -->
+<!--   · Space Mono    → etiquetas, metadatos, formato "archivo"   -->
+<!--  Se cargan de Google Fonts; sin internet caen a fuentes del   -->
+<!--  sistema automáticamente.                                     -->
+<!-- ============================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ===================================================================
+   PALETA Y VARIABLES  ·  edítalas aquí si quieres cambiar el look
+   El color de acento (--accent) CAMBIA POR SECCIÓN automáticamente
+   (ver el objeto THEME en el script de abajo).
+   =================================================================== */
+:root{
+  --paper:    #ffffff;   /* fondo blanco                  */
+  --paper-2:  #ffffff;   /* fondo de tarjetas (blanco)    */
+  --ink:      #121212;   /* tinta principal (texto)       */
+  --ink-dim:  #6a675f;   /* texto secundario / metadatos  */
+  --line:     #121212;   /* líneas / bordes (negro fuerte)*/
+  --accent:   #1E2DFF;   /* acento por defecto (azul Klein) — lo sobreescribe cada sección */
+  --accent-ink:#ffffff;  /* texto sobre el acento         */
+  --maxw:     1320px;
+  --gap:      clamp(14px, 2.4vw, 26px);
+  --shadow:   5px 5px 0 var(--ink);  /* sombra dura "pegatina" */
+}
+
+/* ===================================================================
+   RESET / BASE
+   =================================================================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Space Mono', ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+h1,h2,h3,.display{font-family:'Space Grotesk', ui-sans-serif, system-ui, sans-serif}
+::selection{background:var(--accent);color:var(--accent-ink)}
+
+*::-webkit-scrollbar{width:12px;height:12px}
+*::-webkit-scrollbar-thumb{background:var(--ink)}
+*::-webkit-scrollbar-track{background:var(--paper)}
+
+/* ===================================================================
+   NAVEGACIÓN PERSISTENTE
+   =================================================================== */
+header.nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,40px);
+  height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:'Space Grotesk';font-weight:700;font-size:21px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.brand .dot{width:12px;height:12px;background:var(--accent);border-radius:50%;display:inline-block;transition:transform .3s,background .3s}
+.brand:hover .dot{transform:scale(1.5) rotate(20deg)}
+.nav-right{display:flex;align-items:center;gap:clamp(10px,1.8vw,20px)}
+.nav-links{display:flex;gap:clamp(8px,1.6vw,22px);align-items:center}
+.lang-toggle{display:flex;align-items:center;gap:4px;font-family:'Space Mono';font-size:12px;font-weight:700;
+  letter-spacing:.06em;border:2px solid var(--ink);padding:5px 9px;background:var(--paper-2)}
+.lang-toggle span[data-l]{color:var(--ink-dim);transition:color .15s}
+.lang-toggle span[data-l].on{color:var(--accent)}
+.lang-toggle .sep{color:var(--ink-dim)}
+.nav-links a{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 4px;
+  border-bottom:3px solid transparent;transition:color .15s,border-color .15s,transform .15s;color:var(--ink)}
+.nav-links a:hover{color:var(--accent);transform:translateY(-2px)}
+.nav-links a.active{color:var(--ink);border-color:var(--accent)}
+.menu-btn{display:none;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);padding:6px 12px;background:var(--paper-2)}
+
+@media (max-width:780px){
+  .menu-btn{display:block}
+  .nav-links{position:absolute;top:62px;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--ink);
+    flex-direction:column;align-items:stretch;gap:0;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .nav-links.open{max-height:360px}
+  .nav-links a{padding:15px clamp(16px,4vw,40px);border-bottom:1px solid var(--ink)}
+  .nav-links a.active{border-color:var(--ink);color:var(--accent)}
+}
+
+/* ===================================================================
+   SECCIONES
+   =================================================================== */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.wrap-wide{max-width:1560px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.section{padding:clamp(26px,5vw,58px) 0;min-height:62vh}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+  margin-bottom:clamp(22px,4vw,42px);flex-wrap:wrap}
+.section-head h1{font-size:clamp(34px,8vw,84px);font-weight:700;letter-spacing:-.03em;line-height:.9}
+.section-head .meta{font-size:12px;color:var(--ink-dim);letter-spacing:.08em;text-transform:uppercase}
+.kicker{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  background:var(--accent);color:var(--accent-ink);padding:5px 11px;margin-bottom:14px;transform:rotate(-1.5deg)}
+
+/* ===================================================================
+   HOME
+   =================================================================== */
+.hero{padding:clamp(34px,7vw,84px) 0 clamp(20px,4vw,40px)}
+.hero-logo{font-family:'Space Grotesk';font-weight:700;font-size:clamp(58px,17vw,190px);line-height:.8;letter-spacing:-.045em}
+.hero-logo .b{color:var(--accent);transition:color .3s}
+.hero-tag{font-family:'Space Grotesk';font-weight:500;font-size:clamp(19px,3.4vw,40px);line-height:1.05;
+  letter-spacing:-.01em;margin-top:.35em}
+.hero-tag em{font-style:normal;color:var(--accent);white-space:nowrap}
+.hero p.lead{max-width:60ch;margin-top:clamp(20px,3vw,30px);font-size:clamp(14px,1.6vw,17px);line-height:1.7}
+
+/* Home intro compacto (sobre el muro de galería) */
+.home-intro{padding:clamp(30px,6vw,70px) 0 clamp(20px,3vw,34px)}
+.home-intro .hero-tag{max-width:24ch}
+.home-intro .lead{max-width:56ch;margin-top:clamp(16px,2.4vw,24px);font-size:clamp(14px,1.6vw,17px);line-height:1.7}
+
+/* Muro de galería (fotos + dibujos) estilo Public Records */
+.gallery-wall{display:flex;align-items:flex-start;gap:var(--gap);padding-bottom:clamp(30px,6vw,80px);overflow:hidden}
+.g-col{flex:1;display:flex;flex-direction:column;gap:var(--gap);will-change:transform}
+.g-item{}
+.g-photo{border:2px solid var(--ink);background:var(--paper-2);overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease}
+.g-photo:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow)}
+.g-photo img{width:100%;height:auto;display:block}
+.g-drawing{padding:6px}
+.g-drawing img{width:100%;height:auto;display:block;filter:drop-shadow(3px 3px 0 rgba(18,18,18,.15))}
+.g-drawing .ph{background:none;border:2px dashed var(--ink)}
+.g-item .ph{height:auto}
+.g-item .ph span{font-size:11px}
+.marquee{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;white-space:nowrap;
+  background:#1E2DFF;color:#fff;margin-top:clamp(28px,5vw,56px)}
+.marquee div{display:inline-block;padding:11px 0;animation:scroll 26s linear infinite;font-family:'Space Grotesk';
+  font-weight:700;font-size:18px;letter-spacing:.02em}
+.marquee span{padding:0 22px;vertical-align:middle}
+.marquee .mq-logo{display:inline-block;height:22px;width:auto;vertical-align:middle;margin:0 6px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Índice de secciones */
+.index-list{border-top:2px solid var(--ink);margin-top:clamp(26px,5vw,52px)}
+.index-row{display:grid;grid-template-columns:54px 1fr auto;gap:18px;align-items:center;
+  padding:clamp(16px,3vw,26px) 6px;border-bottom:2px solid var(--ink);transition:padding-left .2s,background .2s,color .2s}
+.index-row:hover{background:var(--accent);color:var(--accent-ink);padding-left:18px}
+.index-row .num{font-size:13px;opacity:.7}
+.index-row .ttl{font-family:'Space Grotesk';font-size:clamp(24px,4.4vw,44px);font-weight:700;letter-spacing:-.02em}
+.index-row .arr{font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.index-row .desc{grid-column:2;font-size:12.5px;margin-top:3px;opacity:.75}
+
+/* ===================================================================
+   GRIDS
+   =================================================================== */
+.grid{display:grid;gap:var(--gap)}
+.grid.events{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--gap);align-items:flex-start}
+.grid.events > .card{flex:0 0 268px}
+@media(max-width:560px){.grid.events > .card{flex:1 1 calc(50% - 8px)}}
+/* nivelar tarjetas: título a 2 líneas fijas y sala sin saltar de línea */
+.grid.events .card .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.36em}
+.grid.events .card .row > span:not(.badge){min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grid.label {grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))}
+.grid.mixes{grid-template-columns:repeat(6,1fr);gap:clamp(8px,0.9vw,14px);padding:0 clamp(16px,4vw,40px)}
+@media(max-width:1100px){.grid.mixes{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:720px){.grid.mixes{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:460px){.grid.mixes{grid-template-columns:repeat(2,1fr)}}
+.grid.shop  {grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))}
+
+.card{display:block;cursor:pointer;background:var(--paper-2);border:2px solid var(--ink);
+  transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translate(-3px,-3px) rotate(-.6deg);box-shadow:var(--shadow)}
+.card .art{aspect-ratio:1/1;width:100%;overflow:hidden;background:var(--paper);border-bottom:2px solid var(--ink);position:relative}
+.card.poster .art{aspect-ratio:5/7}
+.card .art img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+/* variante "contain": caja fija (3:4 con .poster) y flyer ENTERO centrado, sin recortar */
+.card .art.contain img{object-fit:contain}
+.card:hover .art img{transform:scale(1.04)}
+.card .body{padding:13px 14px 16px}
+.card .t{font-family:'Space Grotesk';font-size:16px;font-weight:700;line-height:1.18}
+.card .s{font-size:12.5px;color:var(--ink-dim);margin-top:5px}
+.card .row{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:11.5px;color:var(--ink-dim);align-items:center}
+.card .price{color:var(--accent);font-weight:700;font-size:14px}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--ink);padding:3px 7px}
+.sold{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--paper);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;transform:rotate(-4deg)}
+
+/* ===================================================================
+   MIXES  ·  galería de portadas (estilo Butter Sessions)
+   =================================================================== */
+.mixtile{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:var(--paper);cursor:pointer}
+.mixtile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.mixtile:hover img{transform:scale(1.06)}
+.mixtile .ph{position:absolute;inset:0}
+.mixtile .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 11px;color:#fff;
+  background:linear-gradient(to top,rgba(12,12,12,.92),rgba(12,12,12,0));
+  opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease}
+.mixtile:hover .cap{opacity:1;transform:none}
+.mixtile .cap .mt{display:block;font-family:'Space Grotesk';font-weight:700;font-size:14px;line-height:1.15}
+.mixtile .cap .ma{display:block;font-size:11.5px;opacity:.85;margin-top:2px}
+@media (hover:none){ .mixtile .cap{opacity:1;transform:none;background:linear-gradient(to top,rgba(12,12,12,.85),rgba(12,12,12,0))} }
+/* Conmutador de categorías (TOMBOLOMIXX / LIVE RECORDINGS), centrado bajo el título */
+.mix-cats{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:10px;
+  margin:clamp(16px,3vw,28px) 0 0;
+  font-family:'Space Grotesk';font-weight:700;letter-spacing:-.01em;line-height:1}
+.mix-cats .mix-cat,.mix-cats .mix-sep{font-size:clamp(18px,2.6vw,32px)}
+.mix-cats .mix-cat{cursor:pointer;color:var(--ink-dim);transition:color .15s}
+.mix-cats .mix-cat.on{color:var(--ink)}
+.mix-cats .mix-cat:hover{color:var(--accent)}
+.mix-cats .mix-sep{color:var(--ink-dim)}
+
+/* ===================================================================
+   FICHA / DETALLE
+   =================================================================== */
+.detail{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:start}
+@media (max-width:840px){.detail{grid-template-columns:1fr}}
+.detail .media{border:2px solid var(--ink);background:var(--paper);overflow:hidden;box-shadow:var(--shadow)}
+.detail .media img{width:100%;height:auto}
+.detail .info h1{font-size:clamp(28px,5vw,52px);line-height:.95;margin-bottom:8px;letter-spacing:-.02em}
+.detail .info .sub{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:4px 10px;font-size:13px;margin-bottom:24px;transform:rotate(-1deg)}
+.detail dl{display:grid;grid-template-columns:120px 1fr;gap:11px 16px;border-top:2px solid var(--ink);padding-top:18px;margin-bottom:22px}
+.detail dt{color:var(--ink-dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.detail dd{font-size:14px}
+.detail .copy{font-size:14.5px;line-height:1.75;white-space:pre-line;margin-bottom:24px}
+.detail .copy.dim{color:var(--ink-dim)}
+/* RA Pick — reseña editorial de Resident Advisor */
+.ra-pick{border-top:2px solid var(--ink);margin:6px 0 24px;padding-top:16px}
+.ra-pick .lbl{display:inline-block;font-family:'Space Mono';font-weight:700;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:#ff2a1a;margin-bottom:12px}
+.ra-pick .blurb{font-family:'Space Grotesk';font-weight:500;font-size:clamp(16px,1.9vw,21px);line-height:1.4;margin:0 0 14px}
+.ra-pick .by{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--ink-dim)}
+.ra-pick .by .av{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink-dim);flex:none;
+  background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--ink-dim) 3px,var(--ink-dim) 4px)}
+.tracklist{border-top:2px solid var(--ink);margin-top:8px}
+.tracklist .tr{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:9px 2px;border-bottom:1px solid var(--ink);font-size:13.5px}
+.tracklist .tr .n{color:var(--ink-dim)}
+
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:var(--accent-ink);
+  font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:13px 22px;
+  border:2px solid var(--ink);border-radius:40px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
+.btn.ghost{background:var(--paper-2);color:var(--ink)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:24px;border-bottom:2px solid transparent}
+.back:hover{color:var(--accent);border-color:var(--accent)}
+
+.sc-embed{margin-top:10px;border:2px solid var(--ink)}
+.sc-embed iframe{display:block;width:100%}
+
+/* ===================================================================
+   ABOUT
+   =================================================================== */
+.about{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(28px,6vw,68px);align-items:start}
+@media (max-width:840px){.about{grid-template-columns:1fr}}
+.about .prose p{margin-bottom:18px;font-size:15.5px;line-height:1.8;max-width:64ch}
+.about .prose p:first-child{font-family:'Space Grotesk';font-size:clamp(20px,2.6vw,28px);line-height:1.4;font-weight:500}
+.contact-block{border:2px solid var(--ink);background:var(--paper-2);padding:clamp(20px,3vw,28px);box-shadow:var(--shadow)}
+@media(min-width:841px){.about .contact-block{margin-top:clamp(-92px,-5vw,-48px)}}
+.contact-block h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px}
+.contact-block a.line{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--ink);font-size:14px}
+.contact-block a.line:last-child{border-bottom:none}
+.contact-block a.line:hover{color:var(--accent)}
+.contact-block a.line .ico{width:22px;height:22px;flex:none;color:var(--ink)}
+.contact-block a.line:hover .ico{color:var(--accent)}
+.contact-block a.line .ico svg{width:100%;height:100%;fill:currentColor}
+
+/* Doodles parpadeantes en las esquinas del About */
+.about-section{position:relative}
+.about-doodle{position:absolute;width:clamp(96px,12vw,180px);height:auto;pointer-events:none;z-index:3;
+  mix-blend-mode:multiply;animation:doodleBlink 1.6s steps(1,end) infinite}
+.about-doodle.d-bird{top:6px;right:1%}
+.about-doodle.d-dj{bottom:6px;left:1%;animation-duration:2.1s;animation-delay:.45s}
+@keyframes doodleBlink{0%,72%{opacity:1}73%,100%{opacity:0}}
+@media(max-width:720px){.about-doodle{width:88px}}
+@media(prefers-reduced-motion:reduce){.about-doodle{animation:none;opacity:1}}
+/* ===================================================================
+   PLACEHOLDER
+   =================================================================== */
+.ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;
+  background:repeating-linear-gradient(45deg,var(--paper),var(--paper) 12px,#ececec 12px,#ececec 24px);color:var(--ink-dim)}
+.ph span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;line-height:1.6}
+
+/* ===================================================================
+   FOOTER
+   =================================================================== */
+footer.site{border-top:2px solid var(--ink);margin-top:60px;padding:clamp(30px,5vw,52px) 0;background:var(--paper)}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.foot-grid .big{font-family:'Space Grotesk';font-size:clamp(34px,8vw,88px);font-weight:700;letter-spacing:-.03em;line-height:.9}
+.foot-grid .links{display:flex;gap:14px;flex-wrap:wrap}
+.foot-grid .links a{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid transparent}
+.foot-grid .links a:hover{color:var(--accent);border-color:var(--accent)}
+.foot-legal{margin-top:30px;font-size:11.5px;color:var(--ink-dim);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.view{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.empty{color:var(--ink-dim);padding:40px 0;text-align:center;border:2px dashed var(--ink)}
+
+/* ===================================================================
+   DIBUJOS DISPERSOS ("doodles")  ·  aparecen de forma espontánea.
+   Son decorativos: no bloquean clics. Su contenido se edita en el
+   array DATA.doodles (más abajo).
+   =================================================================== */
+#app{position:relative}
+.doodle-layer{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:visible}
+.doodle{position:absolute;display:block;opacity:0;transform-origin:center;
+  animation:doodlePop .55s cubic-bezier(.2,1.4,.4,1) forwards, doodleFloat 7s ease-in-out infinite}
+.doodle img,.doodle svg{width:100%;height:auto;display:block;filter:drop-shadow(2px 3px 0 rgba(18,18,18,.18))}
+@keyframes doodlePop{from{opacity:0;transform:scale(.2) rotate(var(--rot)) translateY(10px)}
+  to{opacity:1;transform:scale(1) rotate(var(--rot))}}
+@keyframes doodleFloat{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@media (max-width:680px){.doodle.hide-mobile{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAVEGACIÓN PERSISTENTE
+     =================================================================== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#/" class="brand" aria-label="Tombolo home"><span class="dot"></span>Tombolo</a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="#/events">Events</a>
+        <a href="#/mixes">Mixes</a>
+        <a href="#/label">Label</a>
+        <a href="#/about">About</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="big">Tombolo<span style="color:var(--accent)">●</span></div>
+      <div class="links" id="footLinks"></div>
+    </div>
+    <div class="foot-legal">
+      <span>Madrid — est. 2018</span>
+      <span>© <span id="year"></span> Tombolo · www.tombolo.live</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ===================================================================================
+     ███  CONTENIDO EDITABLE  ███
+     -----------------------------------------------------------------------------------
+     TODO lo que ves en la web sale de los objetos de abajo. Puedes AÑADIR, EDITAR o
+     BORRAR elementos SIN tocar el diseño. Reglas generales:
+
+       · Cada elemento va entre llaves { } separado por comas.
+       · Para AÑADIR uno nuevo, copia un bloque entero { ... } y pégalo dentro del [ ].
+       · Para BORRAR uno, elimina su bloque { ... } (y la coma sobrante).
+       · "image" = ruta a tu archivo de imagen. Sube la imagen junto al index.html
+         (p. ej. en una carpeta /img) y pon "img/cartel-001.jpg".
+         Si lo dejas como "" (vacío), saldrá un PLACEHOLDER rayado señalado.
+       · No borres las comillas " " ni las comas. El "id" debe ser único en su lista.
+
+     Imágenes recomendadas:
+       · Carteles de eventos → verticales (3:4), aprox 1000×1333 px.
+       · Portadas de disco / mixes → cuadradas (1:1), aprox 1000×1000 px.
+     =================================================================================== -->
+<script>
+const DATA = {
+
+  /* ---------------------------------------------------------------
+     1) DATOS GLOBALES DEL SITIO  ·  enlaces, redes y contacto.
+        Se usan en el footer y en la página About.
+     --------------------------------------------------------------- */
+  site: {
+    soundcloud: "https://soundcloud.com/tombololive",
+    instagram:  "https://www.instagram.com/tombolo.live/", // @tombolo.live
+    facebook:   "https://www.facebook.com/tombolooo",       // Facebook de Tombolo
+    bandcamp:   "https://tombololive.bandcamp.com",      // Bandcamp del sello (Tombolo Records)
+    discogs:    "https://www.discogs.com/label/tombolo", // <-- opcional
+    email:      "juan@tombolo.live",                     // email de contacto
+  },
+
+  /* ---------------------------------------------------------------
+     2) EVENTS (CARTELES)
+        Campos editables por evento:
+          id      : identificador único (texto sin espacios)
+          title   : nombre del evento
+          date    : fecha (texto libre, p.ej. "12 ABR 2025")
+          city    : ciudad del evento, p.ej. "Madrid"
+          venue   : sala / lugar
+          lineup  : lista de artistas (entre [ ] y comillas)
+          ticket  : enlace a entradas ("" si no hay / ya pasó)
+          past    : true si el evento ya ocurrió, false si es próximo
+          image   : ruta del cartel (vertical 3:4). "" = placeholder
+          summary : texto resumen del evento (lo editas libremente)
+     --------------------------------------------------------------- */
+  events: [
+    { id:"ev-2379759", title:"PAL_co presenta Stella Zekri", date:"22 MAY 2026", city:"Madrid", venue:"Club Magno", lineup:["Stella Zekri","Valle"], ticket:"https://ra.co/events/2379759", past:true, image:"https://images.ra.co/bf3c1239635098a87b57b3e879fb321f97861ca4.jpg", summary:"" },
+    { id:"ev-2379736", title:"PAL_co presenta Daniele Baldelli (FREE Hasta la 1.30)", date:"15 MAY 2026", city:"Madrid", venue:"Club Magno", lineup:["Daniele Baldelli","DJ Gostoso"], ticket:"https://ra.co/events/2379736", past:true, image:"https://images.ra.co/ca89d1ebb62fc875c3e8ab209db73a7062734f1d.jpg", summary:"" },
+    { id:"ev-2379743", title:"PAL_co presenta Joe Goddard (Hot Chip)", date:"08 MAY 2026", city:"Madrid", venue:"Club Magno", lineup:["Joe Goddard","AM/DM"], ticket:"https://ra.co/events/2379743", past:true, image:"https://images.ra.co/3edee86030e4717efc4dff56e4d9eae343801b62.jpg", summary:"" },
+    { id:"ev-2379740", title:"PAL_co presenta Byron The Aquarius + Ivy Barkakati (FREE hasta la 1h30)", date:"01 MAY 2026", city:"Madrid", venue:"Club Magno", lineup:["Byron The Aquarius","Ivy Barkakati"], ticket:"https://ra.co/events/2379740", past:true, image:"img/byron-the-aquarius.jpg", summary:"" },
+    { id:"ev-2379718", title:"PAL_co presenta Tama Sumo (Special NYC Dance Culture From 80's til now set) + AM/DM", date:"24 ABR 2026", city:"Madrid", venue:"Club Magno", lineup:["Tama Sumo","AM/DM"], ticket:"https://ra.co/events/2379718", past:true, image:"https://images.ra.co/040e7ddd1faea157f5d24b52819755be4fda34d1.jpg", summary:"" },
+    { id:"ev-2379730", title:"PAL_co presenta A Guy Called Gerald Live + Senda Fatal", date:"17 ABR 2026", city:"Madrid", venue:"Club Magno", lineup:["A Guy Called Gerald"], ticket:"https://ra.co/events/2379730", past:true, image:"https://images.ra.co/54a813ba9f97ec526b985aa926579b6491dc3162.jpg", summary:"" },
+    { id:"ev-2379716", title:"PAL_co presenta Legowelt (Acid/Electro Live Set) + Rachael", date:"10 ABR 2026", city:"Madrid", venue:"Club Magno", lineup:["Legowelt","Rachael (ES)"], ticket:"https://ra.co/events/2379716", past:true, image:"https://images.ra.co/483f29cac78bf705a2408902b50572546f53dfb1.jpg", summary:"" },
+    { id:"ev-2333204", title:"TOMBOLO CLUB XXL", date:"24 ENE 2026", city:"Madrid", venue:"TBA - Club 110", lineup:["Telephones","Tiago","DJ Gostoso","OG Juan"], ticket:"https://ra.co/events/2333204", past:true, image:"https://images.ra.co/c3998554f857c4937f67e47fbdc1d5e37d70c764.jpg", summary:"" },
+    { id:"ev-2252771", title:"Tombolo x Radio Relativa", date:"20 DIC 2025", city:"Madrid", venue:"TBA - 110", lineup:[], ticket:"https://ra.co/events/2252771", past:true, image:"https://images.ra.co/c35eba011beebfa28c0527554b989b2629cbf3ff.jpg", summary:"" },
+    { id:"ev-2290157", title:"Tombolo CLUB w/ EOIN DJ", date:"21 NOV 2025", city:"Madrid", venue:"Sala Siroco", lineup:["Eoin DJ","Gela","beltranz"], ticket:"https://ra.co/events/2290157", past:true, image:"https://images.ra.co/8ed2c254a354d5f9fe568121d70371713b7698a2.png", summary:"" },
+    { id:"ev-2257105", title:"Tombolo Club is Back w/ Regal86", date:"10 OCT 2025", city:"Madrid", venue:"Cadavra", lineup:["Regal86","CVLT","cris sinaka","TaronX","OG Juan"], ticket:"https://ra.co/events/2257105", past:true, image:"https://images.ra.co/e775a6bf2e87948124c7586586cb2ea2607cffad.png", summary:"" },
+    { id:"ev-2098760", title:"Tombolo Club with Zeynep", date:"07 MAR 2025", city:"Madrid", venue:"Sala Siroco", lineup:["Zeynep","Daniel Kelsan","Ti Es","OG Juan"], ticket:"https://ra.co/events/2098760", past:true, image:"https://images.ra.co/dc3507b590ac887287bf4733132d02959ec14e51.png", summary:"" },
+    { id:"ev-1997416", title:"Tombolo presents Egyptian Lover", date:"11 OCT 2024", city:"Madrid", venue:"Sala Villanos", lineup:["Egyptian Lover","OG Juan","DJ Gostoso","Gostoso","You_el"], ticket:"https://ra.co/events/1997416", past:true, image:"https://images.ra.co/796a64813374fab0fe2dde71a883d03bb55bd461.png", summary:"" },
+    { id:"ev-1985544", title:"Tombolo Club! with OKO DJ", date:"14 SEP 2024", city:"Madrid", venue:"Sala Siroco", lineup:["OKO DJ","hessIless","OG Juan","Dudier"], ticket:"https://ra.co/events/1985544", past:true, image:"https://images.ra.co/b5a1f8ce3dfffc99a326c6ba4ffcb1822f6d2ec7.png", summary:"" },
+    { id:"ev-1950197", title:"Tombolo Club! with Anastasia Kristensen", date:"20 JUL 2024", city:"Madrid", venue:"Sala Villanos", lineup:["Anastasia Kristensen","Dalila (ES)"], ticket:"https://ra.co/events/1950197", past:true, image:"https://images.ra.co/616e7f4171cc71e1a70b9901e31795ad484b200d.png", summary:"" },
+    { id:"ev-1917876", title:"Tombolo presents LTJ Bukem", date:"14 JUN 2024", city:"Madrid", venue:"Sala Villanos", lineup:["LTJ Bukem","OG Juan","Baldman"], ticket:"https://ra.co/events/1917876", past:true, image:"https://images.ra.co/f4054a4818881b935d089100d5cca2dd968986b8.png", summary:"" },
+    { id:"ev-1900514", title:"DJ Fett Burger (Sex Tags Mania)", date:"26 ABR 2024", city:"Madrid", venue:"Sala El Sol", lineup:["DJ Fett Burger","OG Juan"], ticket:"https://ra.co/events/1900514", past:true, image:"https://images.ra.co/d7574d21dcd74a9d0249b8925c28069defd7066e.jpg", summary:"" },
+    { id:"ev-1853356", title:"Tombolo CLUB with FORCE MASS MOTION", date:"09 FEB 2024", city:"Madrid", venue:"Sala Siroco", lineup:["OG Juan"], ticket:"https://ra.co/events/1853356", past:true, image:"https://images.ra.co/775f941b675c40eeeb1d7d3008b2ff71dd06233d.jpg", summary:"" },
+    { id:"ev-1826247", title:"Tombolo Club with Telephones", date:"15 DIC 2023", city:"Madrid", venue:"Sala Siroco", lineup:["Telephones","OG Juan","Gostoso"], ticket:"https://ra.co/events/1826247", past:true, image:"https://images.ra.co/9c438dfe613d6eadc4c68c8c48df95dcf0ec63e3.jpg", summary:"" },
+    { id:"ev-1790672", title:"Tombolo 5º Aniversario w/ Skatebård, Amelia Holt, NAP", date:"11 NOV 2023", city:"Madrid", venue:"TBA - Secret Location (Madrid)", lineup:["Skatebård","Amelia Holt","OG Juan"], ticket:"https://ra.co/events/1790672", past:true, image:"https://images.ra.co/442e9d6c5e41a7741e0cfaafa797dc7633691791.jpg", summary:"" },
+    { id:"ev-1763547", title:"Tombolo CLUB", date:"23 SEP 2023", city:"Madrid", venue:"Sala Siroco", lineup:["Fredfades","OG Juan","Nicolás Mirón"], ticket:"https://ra.co/events/1763547", past:true, image:"https://images.ra.co/05079db77d889354b2c1073e9e636032b6942875.jpg", summary:"" },
+    { id:"ev-1726046", title:"Tombolo CLUB", date:"07 JUL 2023", city:"Madrid", venue:"Sala Siroco", lineup:["Poly Chain","Rachael (ES)","OG Juan"], ticket:"https://ra.co/events/1726046", past:true, image:"https://images.ra.co/4e70528af1c5943d10e00a7c401efed9fb552843.jpg", summary:"" },
+    { id:"ev-1700180", title:"Tombolo Club", date:"14 MAY 2023", city:"Madrid", venue:"Sala Siroco", lineup:["Goasis","OG Juan","Glossy Mario"], ticket:"https://ra.co/events/1700180", past:true, image:"https://images.ra.co/d19b19fc1a0102af7256112f076ad4f243902acb.jpg", summary:"" },
+    { id:"ev-1618645", title:"Mezerg at Lapaqui", date:"14 ABR 2023", city:"Madrid", venue:"But", lineup:["Mezerg"], ticket:"https://ra.co/events/1618645", past:true, image:"https://images.ra.co/b2dc3d8196051fc414a7ae6e258be7b0c9eb3199.jpg", summary:"" },
+    { id:"ev-1669650", title:"Tombolo CLUB", date:"31 MAR 2023", city:"Madrid", venue:"Sala Siroco", lineup:["Pascale Project","Nahoomie","OG Juan","DJ Gostoso","Gostoso"], ticket:"https://ra.co/events/1669650", past:true, image:"https://images.ra.co/13f7ca87e90da5f88c4003ed485f7fd06ba1058a.jpg", summary:"" },
+    { id:"ev-1559249", title:"Tombolo Festival", date:"30 SEP 2022", city:"Madrid", venue:"Sala Independance Club", lineup:["Soichi Terada","DJ Assault","DJ Fett Burger","LNS","Yung Prado","OG Juan","Jan Swam","Savino","Maya B"], ticket:"https://ra.co/events/1559249", past:true, image:"https://images.ra.co/6560d78b7a59f6a9c69e56212497dad7279824b3.png", summary:"" },
+    { id:"ev-1566182", title:"Reptant (LIVE) / Daisy Moon", date:"10 SEP 2022", city:"Madrid", venue:"Sala Siroco", lineup:["Reptant","Daisy Moon","La Ind0","OG Juan"], ticket:"https://ra.co/events/1566182", past:true, image:"https://images.ra.co/3742901bd0ccb8d378c4a996ea1537e60f0a1eb9.jpg", summary:"" },
+    { id:"ev-1502176", title:"Tombolo Club: Dj Gigola - OG Juan", date:"05 MAR 2022", city:"Madrid", venue:"Sala Independance Club", lineup:["DJ Gigola"], ticket:"https://ra.co/events/1502176", past:true, image:"https://images.ra.co/dcd08d3b70564c1a5ff9bc6f887cb69b83f10067.png", summary:"" },
+    { id:"ev-1494999", title:"Tombolo Club W/ Mell G", date:"04 FEB 2022", city:"Madrid", venue:"Sala Siroco", lineup:["DJ MELL G","DJ Nerdiboy","Bazofia","OG Juan"], ticket:"https://ra.co/events/1494999", past:true, image:"img/mell-g.png", summary:"" },
+    { id:"ev-1488597", title:"Tombolo Club with Byron Yeates", date:"05 ENE 2022", city:"Madrid", venue:"Sala Siroco", lineup:["Byron Yeates","OG Juan","Maya B"], ticket:"https://ra.co/events/1488597", past:true, image:"https://images.ra.co/5695ca855f14b3b848fd4c82fc95b426b630f1e0.jpg", summary:"" },
+    { id:"ev-1367323", title:"Carlos Souffront", date:"21 MAR 2020", city:"Madrid", venue:"Sala Caracol", lineup:["Carlos Souffront","A.U.S."], ticket:"https://ra.co/events/1367323", past:true, image:"img/carlos-souffront.png", summary:"" },
+    { id:"ev-1369719", title:"Tombolo! DJ Fett Burger en Madrid", date:"14 FEB 2020", city:"Madrid", venue:"Sala Siroco", lineup:["DJ Fett Burger","OG Juan"], ticket:"https://ra.co/events/1369719", past:true, image:"img/fett-burger-2020.jpg", summary:"" },
+    { id:"ev-1381262", title:"Tombolo! Mezerg y Telefunka en Madrid", date:"13 FEB 2020", city:"Madrid", venue:"Sala Caracol", lineup:["Mezerg"], ticket:"https://ra.co/events/1381262", past:true, image:"https://images.ra.co/e78207fcf5940c017add6e4e8fd6d0026b7c11cf.jpg", summary:"" },
+    { id:"ev-1363480", title:"Clara! y Maoupa", date:"18 ENE 2020", city:"Madrid", venue:"Sala Caracol", lineup:["Clara!","ROCIO"], ticket:"https://ra.co/events/1363480", past:true, image:"https://images.ra.co/4c3ed23e8999f31a4848e67e23d526c0ca9fb4cf.jpg", summary:"" },
+    { id:"ev-1349739", title:"Tombolo! Erika de Casier en Madrid", date:"14 DIC 2019", city:"Madrid", venue:"Sala Siroco", lineup:["Erika de Casier"], ticket:"https://ra.co/events/1349739", past:true, image:"https://images.ra.co/73f0b13a854114698a40b7e19c5125ff67e00669.jpg", summary:"" },
+    { id:"ev-1313276", title:"Tombolo! Juan Wauters en Madrid", date:"27 NOV 2019", city:"Madrid", venue:"Sala Siroco", lineup:["Juan Wauters","Los Telepáticos"], ticket:"https://ra.co/events/1313276", past:true, image:"img/juan-wauters.jpg", summary:"" },
+    { id:"ev-1347750", title:"Tombolo! Victor Kiswell en Madrid", date:"16 NOV 2019", city:"Madrid", venue:"Sala Siroco", lineup:["Victor Kiswell"], ticket:"https://ra.co/events/1347750", past:true, image:"https://images.ra.co/a27aa9cd31a523243c74ad0e6cb405de193d1ce4.jpg", summary:"" },
+    { id:"ev-1313269", title:"Tombolo! Far Caspian en Madrid", date:"03 NOV 2019", city:"Madrid", venue:"Tempo", lineup:[], ticket:"https://ra.co/events/1313269", past:true, image:"https://images.ra.co/d2d57f1a1cbd1e2be31ef84c6be69934af9ce3e2.jpg", summary:"" },
+    { id:"ev-1313242", title:"Tombolo! Acid Tongue en Madrid", date:"25 OCT 2019", city:"Madrid", venue:"Ballesta Club", lineup:["Acid Tongue"], ticket:"https://ra.co/events/1313242", past:true, image:"img/acid-tongue.jpg", summary:"" },
+    { id:"ev-1313240", title:"Pender Street Steppers en Madrid", date:"19 OCT 2019", city:"Madrid", venue:"Caracol Madrid", lineup:["Pender Street Steppers","OG Juan"], ticket:"https://ra.co/events/1313240", past:true, image:"https://images.ra.co/999464b63a5788b487ab4f9cd4c83e261c1dfec8.jpg", summary:"" },
+    { id:"ev-1313237", title:"Tombolo! Papooz Oracle Sisters en Madrid", date:"12 OCT 2019", city:"Madrid", venue:"Sala Clamores", lineup:["Papooz","Oracle Sisters","+ special guests"], ticket:"https://ra.co/events/1313237", past:true, image:"img/papooz.jpg", summary:"" },
+    { id:"ev-1313229", title:"Tombolo! The Holydrug Couple en Madrid", date:"28 SEP 2019", city:"Madrid", venue:"Costello", lineup:[], ticket:"https://ra.co/events/1313229", past:true, image:"https://images.ra.co/aeccb9c108bb28cc6d91df2178d0af46faad4714.jpg", summary:"" },
+    { id:"ev-1313180", title:"Tombolo! Vels Trio en Madrid", date:"13 SEP 2019", city:"Madrid", venue:"El Intruso", lineup:[], ticket:"https://ra.co/events/1313180", past:true, image:"https://images.ra.co/471272f28518b05be4eb6ff2a0b2bd3f9e76c924.jpg", summary:"" },
+    { id:"ev-1253719", title:"Tombolo! Yu Su en Madrid", date:"20 JUL 2019", city:"Madrid", venue:"Sala Siroco", lineup:["Yu Su","Jules & Delaware"], ticket:"https://ra.co/events/1253719", past:true, image:"img/yu-su.jpg", summary:"" },
+    { id:"ev-1253708", title:"Tombolo! 落日飛車 Sunset Rollercoaster en Madrid", date:"22 JUN 2019", city:"Madrid", venue:"Sala El Sol", lineup:["Sunset Rollercoaster","L'hologramme","Supparedpanda"], ticket:"https://ra.co/events/1253708", past:true, image:"img/sunset-rollercoaster.jpg", summary:"" },
+    { id:"ev-1253669", title:"Un año de Tombolo! Orlando Julius & The Heliocentrics en Madrid", date:"30 MAY 2019", city:"Madrid", venue:"Sala Caracol", lineup:["Orlando Julius & The Heliocentrics"], ticket:"https://ra.co/events/1253669", past:true, image:"img/orlando-julius.jpg", summary:"" },
+    { id:"ev-1253664", title:"Tombolo! Mild Orange & Aldous RH en Madrid", date:"21 MAY 2019", city:"Madrid", venue:"Tempo", lineup:["Aldous RH"], ticket:"https://ra.co/events/1253664", past:true, image:"https://images.ra.co/48b4d83c194e72227e7705264852fbb2d2e7df5c.jpg", summary:"" },
+    { id:"ev-1253660", title:"Tombolo! Textasy en Madrid", date:"10 MAY 2019", city:"Madrid", venue:"Sala Siroco", lineup:["Textasy","OG Juan"], ticket:"https://ra.co/events/1253660", past:true, image:"https://images.ra.co/a9bef3d388c011d85e7895bdbc129337c49f0109.jpg", summary:"" },
+    { id:"ev-1242221", title:"El Bwelke de Tombolo! con Dj Dustin [Giegling] en Madrid", date:"05 ABR 2019", city:"Madrid", venue:"Caracol Madrid", lineup:["DJ Dustin","Juanito Jones"], ticket:"https://ra.co/events/1242221", past:true, image:"https://images.ra.co/6d8a8ca7bee84c40e2656fc2acb5459e0db3b7ec.jpg", summary:"" },
+    { id:"ev-1233672", title:"Tombolo! Fatima", date:"16 MAR 2019", city:"Madrid", venue:"Sala Cool", lineup:["Fatima","ROCIO"], ticket:"https://ra.co/events/1233672", past:true, image:"https://images.ra.co/636eaa4f8c2ac753357b6972528a563068bd4318.jpg", summary:"" },
+    { id:"ev-1233671", title:"Tombolo! Bergsonist en Madrid", date:"08 MAR 2019", city:"Madrid", venue:"Ballesta Club", lineup:["Bergsonist"], ticket:"https://ra.co/events/1233671", past:true, image:"https://images.ra.co/b20d5b82c3a44e5037426dae86ecdc159f2b9835.jpg", summary:"" },
+    { id:"ev-yussef-dayes", title:"Tombolo presents Yussef Dayes", date:"21 FEB 2019", city:"Barcelona", venue:"Sala La Nau", lineup:["Yussef Dayes"], ticket:"", past:true, image:"img/yussef-dayes.jpg", summary:"" },
+    { id:"ev-temporex", title:"Tombolo presents Temporex", date:"09 FEB 2019", city:"Madrid", venue:"Sala Clamores", lineup:["Temporex"], ticket:"", past:true, image:"img/temporex.jpg", summary:"" },
+    { id:"ev-1208160", title:"Marc Rebillet", date:"19 ENE 2019", city:"Madrid", venue:"Sala Clamores", lineup:["Marc Rebillet"], ticket:"https://ra.co/events/1208160", past:true, image:"https://images.ra.co/7df0063324d6e1075535a65a5f525a0467460cf1.jpg", summary:"" },
+    { id:"ev-1170913", title:"Pal Joey", date:"23 NOV 2018", city:"Madrid", venue:"Sala Siroco", lineup:["Pal Joey (all night long)","Radio Relativa Gang"], ticket:"https://ra.co/events/1170913", past:true, image:"img/pal-joey.jpg", summary:"" },
+    { id:"ev-1170906", title:"Awesome Tapes From Africa", date:"27 OCT 2018", city:"Madrid", venue:"Sala Caracol", lineup:["Awesome Tapes From Africa","Melvin","OG Juan"], ticket:"https://ra.co/events/1170906", past:true, image:"img/awesome-tapes-from-africa.jpg", summary:"" },
+    { id:"ev-egyptian-lover-2018", title:"Tombolo presents Egyptian Lover", date:"28 SEP 2018", city:"Madrid", venue:"Sala Caracol", lineup:["Egyptian Lover","Ideograma","OG Juan"], ticket:"", past:true, image:"img/egyptian-lover-2018.jpg", summary:"" },
+    { id:"ev-principe", title:"Tombolo x Príncipe: DJ NinOo & DJ Lilocox", date:"06 JUL 2018", city:"Madrid", venue:"Sala Caracol", lineup:["DJ Lilocox","DJ NinOo","DJ Gostoso","DJ Famoso"], ticket:"", past:true, image:"img/principe.png", summary:"" },
+    { id:"ev-ebo-taylor", title:"Tombolo presents Ebo Taylor", date:"02 JUN 2018", city:"Madrid", venue:"Sala But", lineup:["Ebo Taylor"], ticket:"", past:true, image:"img/ebo-taylor.jpg", summary:"" }
+  ],
+
+  /* ---------------------------------------------------------------
+     2b) RA PICKS — reseñas editoriales de Resident Advisor.
+        Se muestran en la ficha del evento (al clicar). La clave es el
+        "id" del evento; solo los eventos con pick de RA lo tienen.
+        Puedes editar el texto (blurb) o el autor libremente.
+     --------------------------------------------------------------- */
+  picks: {
+    "ev-2379759": { blurb:"PAL_co welcomes iconic crate-digger and vocalist Stella Zekri, who artfully slides between genres, moods and tempos.", author:"Gala Sambola Naranjo" },
+    "ev-2379743": { blurb:"PAL_co welcomes the shapeshifting Joe Goddard for a night where house, disco and pop sensibilities fold into one delightful dance floor.", author:"Gala Sambola Naranjo" },
+    "ev-2379718": { blurb:"Panorama Bar resident Tama Sumo brings her heart-driven blend of house, disco and Detroit sounds to PAL_co alongside AM/DM.", author:"Alba Loughlin" },
+    "ev-2333204": { blurb:"TOMBOLO CLUB comes back bigger and louder with a lineup built of old friends and new faces. Expect high-quality breaks, house and more.", author:"Alba Loughlin" },
+    "ev-2252771": { blurb:"Two of Madrid’s powerhouses unite for eight hours of pure joy on a custom-built sound system.", author:"Alba Loughlin" },
+    "ev-2290157": { blurb:"Berlin-based Eoin DJ debuts in Madrid alongside beltranz and Gela. Expect a night of sensual progressive house, trippy dub techno and euphoric breaks.", author:"Alba Loughlin" },
+    "ev-2257105": { blurb:"Back for a new season, Tombolo Club returns with a global lineup led by Mexican powerhouse Regal86. Expect fast-paced blends and raw rhythms at this one.", author:"Alba Loughlin" },
+    "ev-2098760": { blurb:"Ahead of its short hiatus, Tombolo Club throws one last party, with special guest Zeynep bringing dreamy and euphoric sounds to Sala Siroco.", author:"Alba Loughlin" },
+    "ev-1985544": { blurb:"Tombolo Club! opens its new season with a night of classy breaks from the likes of OKO DJ, hesslless and a litany of local talent.", author:"Alba Loughlin" },
+    "ev-1950197": { blurb:"This all-femme lineup at Sala Villanos hosts eclectic master Anastasia Kristensen and local icons Dalila and Nogue.", author:"Alba Loughlin" },
+    "ev-1900514": { blurb:"Tombolo hosts Sex Tags cofounder DJ Fett Burger for an evening of weird and wonderful house, disco, jazz, dub, bleep and, well, just about anything.", author:"Malena Garcia Morteo" },
+    "ev-1726046": { blurb:"This edition of Tombolo CLUB promises to be a hot and dreamy affair, featuring music from sensational Ukrainian artist Poly Chain and her electrifying blend of IDM-infused electro.", author:"Perla Zuñiga" },
+    "ev-1559249": { blurb:"This mini festival created by Tombolo is hosting two nights of house, electro and breaks with names like DJ Assault, Soichi Terada and Yung Prado.", author:"Perla Zuñiga" },
+    "ev-1566182": { blurb:"Tombolo Club starts the season with a perfect mix: Reptant's playful electro coupled with the juicy house, techno and acid of Daisy Moon.", author:"Perla Zuñiga" },
+    "ev-1502176": { blurb:"Get ready for high-velocity rave bangers as the queen of the night Dj Gigola arrives for the first time to Madrid.", author:"Perla Zuñiga" },
+    "ev-1494999": { blurb:"Mell G will make every cell in your body shake. It's her first time in Madrid—are you going to miss it?", author:"Perla Zuñiga" },
+    "ev-1369719": { blurb:"The Sex Tags Mania boss always has a curveball or three up his sleeve.", author:"Jose Cabrera" },
+    "ev-1253660": { blurb:"The breakbeat king hits the capital.", author:"Jose Cabrera" },
+    "ev-1170913": { blurb:"A New York house legend in the building.", author:"Jose Cabrera" }
+  },
+
+  /* ---------------------------------------------------------------
+     3) MIXES (SoundCloud)
+        Cómo obtener "scUrl":
+          1. Abre el mix en soundcloud.com/tombololive
+          2. Copia la URL pública del track (la de la barra del navegador)
+          3. Pégala en "scUrl". El reproductor se incrusta solo.
+        Campos:
+          id, title, artist, date, duration, genre
+          cover : portada cuadrada (1:1). "" = placeholder
+          scUrl : URL del track en SoundCloud (para el reproductor)
+          notes : descripción que se ve en la ficha del mix
+     --------------------------------------------------------------- */
+  mixes: [
+    { id:"mix-159", title:"TOMBOLOMIXX 159", artist:"Elio", date:"2026", duration:"1:18:56", genre:"Downtempo", cover:"https://i1.sndcdn.com/artworks-7i4SJecO9BNCDk3I-RCnAUw-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-159-elio", notes:"" },
+    { id:"mix-158", title:"TOMBOLOMIXX 158", artist:"Nachine", date:"2026", duration:"1:05:23", genre:"Deep House", cover:"https://i1.sndcdn.com/artworks-Zc1wNWUUK4algbBo-tJlPow-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-158-nachine", notes:"" },
+    { id:"mix-157", title:"TOMBOLOMIXX 157", artist:"emkay", date:"2026", duration:"1:00:48", genre:"", cover:"https://i1.sndcdn.com/artworks-tLgBfyLzYPr5i9OI-5UDkfQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/emkay", notes:"" },
+    { id:"mix-156", title:"TOMBOLOMIXX 156", artist:"Tiago", date:"2026", duration:"1:02:38", genre:"", cover:"https://i1.sndcdn.com/artworks-ca8hstu4FHFE0OAJ-Zbb5uQ-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-156-tiago", notes:"" },
+    { id:"mix-155", title:"TOMBOLOMIXX 155", artist:"Grosera", date:"2026", duration:"1:01:26", genre:"", cover:"https://i1.sndcdn.com/artworks-gZGW68oB9ULACOlq-H2DPpQ-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-155-grosera", notes:"" },
+    { id:"mix-154", title:"TOMBOLOMIXX 154", artist:"Damian Schwartz", date:"2026", duration:"1:58:56", genre:"", cover:"https://i1.sndcdn.com/artworks-3Pcexo97IREO9UB0-hRrbtg-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-154-damian-schwartz", notes:"" },
+    { id:"mix-153", title:"TOMBOLOMIXX 153", artist:"eoin dj  (live at tombolo club)", date:"2025", duration:"1:33:30", genre:"", cover:"https://i1.sndcdn.com/artworks-d4CBRpJ8bfoR1yRV-KWImvQ-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-153-eoin-dj", notes:"" },
+    { id:"mix-152", title:"TOMBOLOMIXX 152", artist:"DJ SRA", date:"2025", duration:"1:12:29", genre:"Deep House", cover:"https://i1.sndcdn.com/artworks-KCkukiMtEbic0egL-xnbAaw-t500x500.png", scUrl:"https://soundcloud.com/tombololive/djsra", notes:"" },
+    { id:"mix-151", title:"TOMBOLOMIXX 151", artist:"beltranz", date:"2025", duration:"55:51", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-ixc5Y3UOSuSzEiky-T02HSA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-151-beltranz", notes:"" },
+    { id:"mix-150", title:"TOMBOLOMIXX 150", artist:"Bat", date:"2025", duration:"2:10:37", genre:"Sonic", cover:"https://i1.sndcdn.com/artworks-TOAInzfLTECV9juP-lZePgw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-150-bat", notes:"" },
+    { id:"mix-149", title:"TOMBOLOMIXX 149", artist:"Blend Affect", date:"2025", duration:"1:00:31", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-fXnRESBT8S9NecNo-yEb0vQ-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-149-blend-affect", notes:"" },
+    { id:"mix-148", title:"TOMBOLOMIXX 148", artist:"Tierno Cartilago b2b Afferent", date:"2025", duration:"2:11:21", genre:"Breakbeat", cover:"https://i1.sndcdn.com/artworks-0WN88N7KNXk2OHyP-0JKwqw-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-148-tierno-cartilago-b2b-afferent", notes:"" },
+    { id:"mix-147", title:"TOMBOLOMIXX 147", artist:"CVLT", date:"2025", duration:"58:55", genre:"Skizzo", cover:"https://i1.sndcdn.com/artworks-RpcDsyR8kWgjBlzU-y039JQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-147-cvlt", notes:"" },
+    { id:"mix-146", title:"TOMBOLOMIXX 146", artist:"AJ aka Ethan Morgan", date:"2025", duration:"1:32:05", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-9eNz5vN1h39j3otR-Qn9baA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-147-ethan-morgan", notes:"" },
+    { id:"mix-145", title:"TOMBOLOMIXX 145", artist:"Arlanoa", date:"2025", duration:"1:25:16", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-RdOugvjYnMOeVsuw-xpznOA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-145-arlanoa", notes:"" },
+    { id:"mix-144", title:"TOMBOLOMIXX 144", artist:"Lucient (Live at Embassa't 2025)", date:"2025", duration:"1:43:33", genre:"", cover:"https://i1.sndcdn.com/artworks-3kyHx9H2RoPe8ZRO-uUERjw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-143-lucient", notes:"" },
+    { id:"mix-143", title:"TOMBOLOMIXX 143", artist:"DJ One Go", date:"2025", duration:"45:34", genre:"", cover:"https://i1.sndcdn.com/artworks-jGjCUxplF9YQE7px-I9r92g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-144-dj-one-go", notes:"" },
+    { id:"mix-142", title:"TOMBOLOMIXX 142", artist:"Onkel-S", date:"2025", duration:"1:17:36", genre:"", cover:"https://i1.sndcdn.com/artworks-mLPbBxusvsux5AgO-3m9zOg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-142-onkel-s", notes:"" },
+    { id:"mix-141", title:"TOMBOLOMIXX 141", artist:"Gela (Live at Dabadaba)", date:"2025", duration:"2:06:20", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-QubXPYH6sACLtizo-RkcSsw-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-141-gela-live-at-dabadaba", notes:"" },
+    { id:"mix-140", title:"TOMBOLOMIXX 140", artist:"Kid Simius", date:"2025", duration:"1:01:12", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-qfCs2EG9isPYDGxY-aWK7LA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/kidsimius", notes:"" },
+    { id:"mix-139", title:"TOMBOLOMIXX 139", artist:"DJ Sito (Live at Cadavra Club)", date:"2025", duration:"2:23:54", genre:"House", cover:"https://i1.sndcdn.com/artworks-zUFwSC3dLtW0YV43-ydmyLg-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-139-dj-sito-live-at-cdvr", notes:"" },
+    { id:"mix-138", title:"TOMBOLOMIXX 138", artist:"Bakläxa", date:"2025", duration:"58:38", genre:"Dubstep", cover:"https://i1.sndcdn.com/artworks-SNO0muXMjgpsmoae-NN46KQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-138-baklaxa", notes:"" },
+    { id:"mix-137", title:"TOMBOLOMIXX 137", artist:"Mui Mui", date:"2025", duration:"59:37", genre:"2 Step", cover:"https://i1.sndcdn.com/artworks-zalywXFMrQm0bgV3-xN56hg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-137-mui-mui", notes:"" },
+    { id:"mix-136", title:"TOMBOLOMIXX 136", artist:"Energy Spin", date:"2025", duration:"1:12:42", genre:"House", cover:"https://i1.sndcdn.com/artworks-gHmTbLG5VUqEJ2c0-YNzlzw-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-136-energy-spin", notes:"" },
+    { id:"mix-135", title:"TOMBOLOMIXX 135", artist:"FAFF", date:"2025", duration:"1:01:55", genre:"House", cover:"https://i1.sndcdn.com/artworks-S8dRco7yD2VCyx4u-MCVXzg-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx135-faff", notes:"" },
+    { id:"mix-134", title:"TOMBOLOMIXX 134", artist:"Cerame Super Sound", date:"2025", duration:"2:17:28", genre:"", cover:"https://i1.sndcdn.com/artworks-p9dqJWjNFWjiyEdn-oZyeEw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/ceramesupersound", notes:"" },
+    { id:"mix-133", title:"TOMBOLOMIXX 133", artist:"Gala (Live at Margarita Electronica)", date:"2025", duration:"2:16:10", genre:"Dub Techno", cover:"https://i1.sndcdn.com/artworks-VFN6pjK8CkJfzRzc-AUMuQA-t500x500.png", scUrl:"https://soundcloud.com/tombololive/tombolomixx-133-gala", notes:"" },
+    { id:"mix-132", title:"TOMBOLOMIXX 132", artist:"Mrtnz (Live at Jaleo Real 2024)", date:"2025", duration:"1:16:33", genre:"House", cover:"https://i1.sndcdn.com/artworks-x8wjzSKQJwq7xtiy-WfOy2Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-132-mrtnz", notes:"" },
+    { id:"mix-131", title:"TOMBOLOMIXX 131", artist:"xandru", date:"2025", duration:"1:23:05", genre:"", cover:"https://i1.sndcdn.com/artworks-xRnQ7bw4zaP4n8c7-SN0QAg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-131-xandru", notes:"" },
+    { id:"mix-130", title:"TOMBOLOMIXX 130", artist:"Recho (Live at Jaleo Real 2024)", date:"2024", duration:"2:01:11", genre:"Ambient", cover:"https://i1.sndcdn.com/artworks-uE25SQlaygJCpFTH-oSVPOQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-130-recho-live-at-jaleo-real", notes:"" },
+    { id:"mix-129", title:"TOMBOLOMIXX 129", artist:"DJ Bruce Lee", date:"2024", duration:"1:29:36", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-1cN9hpPp2gM0awPs-RR6SlQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-129-dj-bruce-lee-1", notes:"" },
+    { id:"mix-128", title:"TOMBOLOMIXX 128", artist:"Nogue (Live at Jaleo Real 2024)", date:"2024", duration:"1:36:58", genre:"Dub", cover:"https://i1.sndcdn.com/artworks-AwyVwNHUH13sygvV-lOONrQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-128-nogue", notes:"" },
+    { id:"mix-127", title:"TOMBOLOMIXX 127", artist:"Pépe", date:"2024", duration:"57:20", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-1cM78bBsPUAT4SyM-P51EKQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-127-pepe", notes:"" },
+    { id:"mix-126", title:"TOMBOLOMIXX 126", artist:"Nicolas Mirón", date:"2024", duration:"1:02:57", genre:"", cover:"https://i1.sndcdn.com/artworks-FkSWF1sS2zjvhyrx-34GN4g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-126-nicolas-miron", notes:"" },
+    { id:"mix-125", title:"TOMBOLOMIXX 125", artist:"TRS", date:"2024", duration:"1:23:08", genre:"Dub", cover:"https://i1.sndcdn.com/artworks-tzLd9yFYpz8NvbWz-H11qZA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-125-trs", notes:"" },
+    { id:"mix-124", title:"TOMBOLOMIXX 124", artist:"Ken", date:"2024", duration:"1:02:53", genre:"Deep House", cover:"https://i1.sndcdn.com/artworks-IFd4kvzPSoEoNfj1-MZuU7A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-124-ken", notes:"" },
+    { id:"mix-123", title:"TOMBOLOMIXX 123", artist:"Villella", date:"2024", duration:"2:06:56", genre:"", cover:"https://i1.sndcdn.com/artworks-n08WcoHIzywyPvw1-F6enVw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/villella", notes:"" },
+    { id:"mix-122", title:"TOMBOLOMIXX 122", artist:"Tom Allman", date:"2024", duration:"1:00:47", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-eWaeUathOE9Dkmyl-pCLmXA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-124-tom-allman", notes:"" },
+    { id:"mix-121", title:"TOMBOLOMIXX 121", artist:"Telephones (Live at Tombolo Club)", date:"2024", duration:"2:03:50", genre:"", cover:"https://i1.sndcdn.com/artworks-ZXmpygqGZaEu0zwr-7u8ISg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-121-telephones-live-at-tombolo-club-1", notes:"" },
+    { id:"mix-120", title:"TOMBOLOMIXX 120", artist:"BanzaiXX", date:"2024", duration:"1:27:49", genre:"Cosmic", cover:"https://i1.sndcdn.com/artworks-SS9r9NAktsmNjM8v-dmHAig-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/banzaixx-mix-5324", notes:"" },
+    { id:"mix-118", title:"TOMBOLOMIXX 118", artist:"TTRRAACCAA", date:"2024", duration:"55:59", genre:"", cover:"https://i1.sndcdn.com/artworks-IqVoYylqOcVTh89S-9ucEgA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-116-ttrraaccaa", notes:"" },
+    { id:"mix-117", title:"TOMBOLOMIXX 117", artist:"Surrealita", date:"2024", duration:"1:03:20", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-1fgvhHI2zYlHTsrN-0J1ilg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolo-surrealita", notes:"" },
+    { id:"mix-116", title:"TOMBOLOMIXX 116", artist:"Dichas", date:"2024", duration:"57:04", genre:"Downtempo", cover:"https://i1.sndcdn.com/artworks-LjqhslCKF8EizME1-PrVsew-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolaso-dichas-definitif", notes:"" },
+    { id:"mix-115", title:"TOMBOLOMIXX 115", artist:"Gisele South", date:"2024", duration:"58:01", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-4RLVkjrLAwUVsZGs-qzO28w-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolo-gisele-south", notes:"" },
+    { id:"mix-114", title:"TOMBOLOMIXX 114", artist:"Duetempi", date:"2023", duration:"1:02:51", genre:"", cover:"https://i1.sndcdn.com/artworks-cRnbz5Wox4SnMsYo-ypC70g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/italectro-2", notes:"" },
+    { id:"mix-113", title:"TOMBOLOMIXX 113", artist:"Daniel Kelsan (Live at Mordisco Club)", date:"2024", duration:"1:30:48", genre:"", cover:"https://i1.sndcdn.com/artworks-DXOCuD6h7kD48ZYS-DpcoJg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/daniel-kelsan", notes:"" },
+    { id:"mix-112", title:"TOMBOLOMIXX 112", artist:"Niki Lauda", date:"2024", duration:"1:04:45", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-Nilmf2GzThSyUCyz-GlYxyQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-112-niki-lauda", notes:"" },
+    { id:"mix-111", title:"TOMBOLOMIXX 111", artist:"Gray", date:"2023", duration:"1:04:17", genre:"90's House", cover:"https://i1.sndcdn.com/artworks-6jDrSOlFRoqcq11H-CMPB4g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-111-gray", notes:"" },
+    { id:"mix-110", title:"TOMBOLOMIXX 110", artist:"CRKS290", date:"2023", duration:"50:35", genre:"Dubstep", cover:"https://i1.sndcdn.com/artworks-UdZ9wOdMT27OFAMk-owWHdQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-110-cuco", notes:"" },
+    { id:"mix-109", title:"TOMBOLOMIXX 109", artist:"Sifon", date:"2023", duration:"1:35:45", genre:"", cover:"https://i1.sndcdn.com/artworks-hN07UMbkEeyRnKXk-yeZZIA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/sifon-mix-2023", notes:"" },
+    { id:"mix-108", title:"TOMBOLOMIXX 108", artist:"Maria Latina", date:"2023", duration:"1:21:02", genre:"Detroit", cover:"https://i1.sndcdn.com/artworks-2Mt2MYDZC4KT7mra-ZJDNpg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-108-maria-latina", notes:"" },
+    { id:"mix-107", title:"TOMBOLOMIXX 107", artist:"Josephine' Soundscapes", date:"2023", duration:"1:42:09", genre:"Downtempo", cover:"https://i1.sndcdn.com/artworks-qiqAgqtShVLDT3h4-BNX1cg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/machines-desirantes-mastering-24bit", notes:"" },
+    { id:"mix-106", title:"TOMBOLOMIXX 106", artist:"Fredfades", date:"2023", duration:"1:26:36", genre:"House", cover:"https://i1.sndcdn.com/artworks-yr9oQxyL2hVLSyYW-1BvX1Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/fredfades-tombolo-mix-fixed", notes:"" },
+    { id:"mix-105", title:"TOMBOLOMIXX 105", artist:"Gudlyfe", date:"2023", duration:"1:02:52", genre:"Downtempo", cover:"https://i1.sndcdn.com/artworks-GorivZ6LDQscVsuG-bKrOlQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/elio-fumagalli", notes:"" },
+    { id:"mix-104", title:"TOMBOLOMIXX 104", artist:"Gerhard", date:"2023", duration:"1:30:41", genre:"", cover:"https://i1.sndcdn.com/artworks-zdIy6Pu9rOszOj4V-12EvqQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-105-gerhard", notes:"" },
+    { id:"mix-103", title:"TOMBOLOMIXX 103", artist:"Nokto", date:"2023", duration:"58:56", genre:"Progressive", cover:"https://i1.sndcdn.com/artworks-gbTurmCKew496Yxj-2VshQg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-098-nokto", notes:"" },
+    { id:"mix-102", title:"TOMBOLOMIXX 102", artist:"Clap Kent", date:"2023", duration:"55:52", genre:"House", cover:"https://i1.sndcdn.com/artworks-AkTarcKMHMxlG4m4-QzlhIg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-102-clap-kent", notes:"" },
+    { id:"mix-101", title:"TOMBOLOMIXX 101", artist:"Khvedeliani B2B DJ Sendnudes", date:"2023", duration:"1:58:30", genre:"House", cover:"https://i1.sndcdn.com/artworks-HJB36Oh6yM2DUnEq-YN7ytg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/khvedeliani-b2b-dj-sendnudes-2104", notes:"" },
+    { id:"mix-100", title:"TOMBOLOMIXX 100", artist:"Poly Chain", date:"2023", duration:"58:28", genre:"Electro", cover:"https://i1.sndcdn.com/artworks-iJCAVsaqV7bwhjzP-lezkUA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-100-poly-chain", notes:"" },
+    { id:"mix-99", title:"TOMBOLOMIXX 99", artist:"customer service", date:"2023", duration:"55:51", genre:"", cover:"https://i1.sndcdn.com/artworks-aW90G2pC3d9uSxmV-ynvavw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-099-customer-service", notes:"" },
+    { id:"mix-98", title:"TOMBOLOMIXX 98", artist:"Ruin Klarity \"A mix to feel close to you\"", date:"2023", duration:"1:10:32", genre:"", cover:"https://i1.sndcdn.com/artworks-vCVhb2b2dDURfyVN-fMNuLw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-098-ruin-klarity", notes:"" },
+    { id:"mix-97", title:"TOMBOLOMIXX 97", artist:"Bardia Mehrzadeh", date:"2023", duration:"1:04:15", genre:"", cover:"https://i1.sndcdn.com/artworks-X3l8VLUamKVpHAYj-0WN1uw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-097-bardia-mehrzadeh", notes:"" },
+    { id:"mix-96", title:"TOMBOLOMIXX 96", artist:"Goasis", date:"2023", duration:"1:09:52", genre:"PSY", cover:"https://i1.sndcdn.com/artworks-houSHbsVIJImNgcV-enYYEw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-096-goasis", notes:"" },
+    { id:"mix-95", title:"TOMBOLOMIXX 95", artist:"Baldman", date:"2023", duration:"1:12:29", genre:"Dub", cover:"https://i1.sndcdn.com/artworks-ubeRcFXG8ZAylUPj-yTVyUA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-095-baldman", notes:"" },
+    { id:"mix-94", title:"TOMBOLOMIXX 94", artist:"Bull Horris", date:"2023", duration:"1:07:27", genre:"", cover:"https://i1.sndcdn.com/artworks-DtpDJezP7CxYWUch-JyC1Dg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-094-bull-horris", notes:"" },
+    { id:"mix-93", title:"TOMBOLOMIXX 93", artist:"hessIless", date:"2023", duration:"1:20:26", genre:"downtempo", cover:"https://i1.sndcdn.com/artworks-NIWhbGGwFPlpLeE7-G8HQmw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-093-hesiless", notes:"" },
+    { id:"mix-92", title:"TOMBOLOMIXX 92", artist:"Senda Fatal", date:"2023", duration:"1:06:18", genre:"energia astral", cover:"https://i1.sndcdn.com/artworks-gfRVQtPKSrF4XrKH-UJmQIw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolo-senda-fatalmp3", notes:"" },
+    { id:"mix-91", title:"TOMBOLOMIXX 91", artist:"Mola Mola", date:"2023", duration:"1:15:32", genre:"Industrial", cover:"https://i1.sndcdn.com/artworks-v7mB35J5u13MdHNv-sv5CJA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-091-mola-mola", notes:"" },
+    { id:"mix-90", title:"TOMBOLOMIXX 90", artist:"Nahoomie", date:"2023", duration:"1:02:04", genre:"House", cover:"https://i1.sndcdn.com/artworks-jxx7YgoiEt5JGZBj-xfduxA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-090-nahoomie", notes:"" },
+    { id:"mix-89", title:"TOMBOLOMIXX 89", artist:"Vandàla", date:"2023", duration:"1:04:29", genre:"", cover:"https://i1.sndcdn.com/artworks-lQuQc9bu0PgR2nEq-UAXKig-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomix-089-vicky-vandala", notes:"" },
+    { id:"mix-88", title:"TOMBOLOMIXX 88", artist:"Mou", date:"2023", duration:"1:02:13", genre:"", cover:"https://i1.sndcdn.com/artworks-oqZXXWlvErFoFzBR-XoPdJA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-090-mou", notes:"" },
+    { id:"mix-87", title:"TOMBOLOMIXX 87", artist:"Lora Mipsum", date:"2023", duration:"1:12:39", genre:"", cover:"https://i1.sndcdn.com/artworks-YTKoGKqKERuA1BYj-1dbEag-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/loramipsumtombolo", notes:"" },
+    { id:"mix-86", title:"TOMBOLOMIXX 86", artist:"Flü", date:"2022", duration:"59:53", genre:"", cover:"https://i1.sndcdn.com/artworks-6UlclUu1UmcBzhAz-zvzQAw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/flu-mix", notes:"" },
+    { id:"mix-85", title:"TOMBOLOMIXX 85", artist:"Rachael", date:"2022", duration:"1:11:23", genre:"", cover:"https://i1.sndcdn.com/artworks-ug5NwmC4EXOkhQeO-1AQPog-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx085-rachael", notes:"" },
+    { id:"mix-84", title:"TOMBOLOMIXX 84", artist:"Gary", date:"2022", duration:"58:56", genre:"ENERGY", cover:"https://i1.sndcdn.com/artworks-Fx7FnmnBOW9zfNIF-Xle8JQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-084-gary", notes:"" },
+    { id:"mix-83", title:"TOMBOLOMIXX 83", artist:"Hame DJ", date:"2022", duration:"1:24:20", genre:"Downtempo", cover:"https://i1.sndcdn.com/artworks-6BYPrxq22bvPd57s-EdVyDw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/love-letter-2-myself-hame-dj", notes:"" },
+    { id:"mix-82", title:"TOMBOLOMIXX 82", artist:"Bennet", date:"2022", duration:"1:07:46", genre:"HEAT", cover:"https://i1.sndcdn.com/artworks-rtN3lrTXfw1FO7tR-SkmPwQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-082-bennet", notes:"" },
+    { id:"mix-81", title:"TOMBOLOMIXX 81", artist:"Orion Agassi", date:"2022", duration:"54:42", genre:"", cover:"https://i1.sndcdn.com/artworks-Kz4CjToRj4FM4cVM-Ei4SnA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-079-orion-agassi", notes:"" },
+    { id:"mix-80", title:"TOMBOLOMIXX 80", artist:"Daisy Moon", date:"2022", duration:"1:02:43", genre:"", cover:"https://i1.sndcdn.com/artworks-jHGGkjyW7RDl5Qdx-19bHPA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-080-daisy-moon", notes:"" },
+    { id:"mix-79", title:"TOMBOLOMIXX 79", artist:"Noise Diva", date:"2022", duration:"37:20", genre:"", cover:"https://i1.sndcdn.com/artworks-G7l92weB6B5EdjOM-lkjNzg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/079-noise-diva", notes:"" },
+    { id:"mix-78", title:"TOMBOLOMIXX 78", artist:"Phran", date:"2022", duration:"1:00:12", genre:"", cover:"https://i1.sndcdn.com/artworks-iT5kWyzHFnQfTQil-Q7SXTQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/phrantombolomix", notes:"" },
+    { id:"mix-77", title:"TOMBOLOMIXX 77", artist:"Süheyla", date:"2022", duration:"1:00:13", genre:"", cover:"https://i1.sndcdn.com/artworks-WxcKv1IAjtyUy37G-iMeApw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/future-planet", notes:"" },
+    { id:"mix-76", title:"TOMBOLOMIXX 76", artist:"Philip Budny", date:"2022", duration:"1:00:16", genre:"House", cover:"https://i1.sndcdn.com/artworks-3TFJonPuBLBuROyH-6azrKw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomix076-philip-budny", notes:"" },
+    { id:"mix-75", title:"TOMBOLOMIXX 75", artist:"Minish", date:"2022", duration:"1:09:29", genre:"House", cover:"https://i1.sndcdn.com/artworks-6RiWqbKGBYRM1ZCK-LhBH6Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-075-minish", notes:"" },
+    { id:"mix-74", title:"TOMBOLOMIXX 74", artist:"Willee", date:"2022", duration:"1:09:50", genre:"", cover:"https://i1.sndcdn.com/artworks-CLqXLRpjPNYG8wY2-IEfyyw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-074-willie-ortiz", notes:"" },
+    { id:"mix-73", title:"TOMBOLOMIXX 73", artist:"Eder Croket", date:"2022", duration:"1:09:35", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-LU0izoBZiopnqAWB-XPxjdA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/eder-croket", notes:"" },
+    { id:"mix-72", title:"TOMBOLOMIXX 72", artist:"Jerome", date:"2022", duration:"1:03:15", genre:"", cover:"https://i1.sndcdn.com/artworks-Pz4AWtjugCqSu4LU-d8EbZA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-072-jerome", notes:"" },
+    { id:"mix-71", title:"TOMBOLOMIXX 71", artist:"Tanzabend", date:"2022", duration:"1:14:40", genre:"", cover:"https://i1.sndcdn.com/artworks-HWFvYxNpLYlGceTS-c3Q5fw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-071-tanzabend", notes:"" },
+    { id:"mix-70", title:"TOMBOLOMIXX 70", artist:"OG Juan (Live at Tombolo Club)", date:"2022", duration:"1:54:40", genre:"Energy", cover:"https://i1.sndcdn.com/artworks-hWYWCCeLmgJzolzz-Wjkz8w-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/og-juan-live-tombolo1", notes:"" },
+    { id:"mix-69", title:"TOMBOLOMIXX 69", artist:"Ariel Sports", date:"2022", duration:"47:25", genre:"", cover:"https://i1.sndcdn.com/artworks-78g3EjuTrCYc6QLV-OF3CDA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-069-ariel-sports", notes:"" },
+    { id:"mix-68", title:"TOMBOLOMIXX 68", artist:"Love Higher", date:"2022", duration:"47:46", genre:"", cover:"https://i1.sndcdn.com/artworks-SXQ3JVdWgWbZJbkP-y7uyew-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-068-love-higher", notes:"" },
+    { id:"mix-67", title:"TOMBOLOMIXX 67", artist:"Dileta", date:"2022", duration:"1:34:06", genre:"", cover:"https://i1.sndcdn.com/artworks-41XWNytZxa5x6YE1-wTfo2A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-067-dileta", notes:"" },
+    { id:"mix-66", title:"TOMBOLOMIXX 66", artist:"Amelia Holt", date:"2021", duration:"1:47:01", genre:"", cover:"https://i1.sndcdn.com/artworks-ANE8kXXKsu84zSq8-ySJnmQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/ameliawav", notes:"" },
+    { id:"mix-65", title:"TOMBOLOMIXX 65", artist:"I-94", date:"2021", duration:"1:18:53", genre:"Jazz", cover:"https://i1.sndcdn.com/artworks-BiQcOZCj7UAO5JVm-zQEQGQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-065-i-94", notes:"" },
+    { id:"mix-64", title:"TOMBOLOMIXX 64", artist:"Unknown Mobile", date:"2021", duration:"1:00:00", genre:"", cover:"https://i1.sndcdn.com/artworks-2p6Dyvs2mMvwxyCk-zIT04w-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-064-unknown-mobile", notes:"" },
+    { id:"mix-63", title:"TOMBOLOMIXX 63", artist:"Pau Roca", date:"2021", duration:"59:10", genre:"House", cover:"https://i1.sndcdn.com/artworks-7PQ5vUxQTnkOD0eI-N2ZInA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-063-pau-roca", notes:"" },
+    { id:"mix-62", title:"TOMBOLOMIXX 62", artist:"DJ Lentil", date:"2021", duration:"59:14", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-y23Wg0uBa9T6C4z8-gpX98g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-062-dj-lentil", notes:"" },
+    { id:"mix-61", title:"TOMBOLOMIXX 61", artist:"DJ Joserra aka La Ind0", date:"2021", duration:"1:16:23", genre:"Jungle", cover:"https://i1.sndcdn.com/artworks-ERdfVrRJr5dEKneC-Q5Cu1A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-dj-joserra", notes:"" },
+    { id:"mix-60", title:"TOMBOLOMIXX 60", artist:"Fernanda Arrau", date:"2021", duration:"1:05:33", genre:"House", cover:"https://i1.sndcdn.com/artworks-LKf1YXyP9KOCSMEF-sTy2lA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-060-fernanda-arrau", notes:"" },
+    { id:"mix-59", title:"TOMBOLOMIXX 59", artist:"Fear-E", date:"2021", duration:"1:05:25", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-eSjxpCyLc1djPlyD-zoi5mw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/mixx-058-fear-e", notes:"" },
+    { id:"mix-58", title:"TOMBOLOMIXX 58", artist:"Emkay", date:"2021", duration:"59:56", genre:"House", cover:"https://i1.sndcdn.com/artworks-PzQSKMsizylNOHyG-yZIN6A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-058-emkay", notes:"" },
+    { id:"mix-57", title:"TOMBOLOMIXX 57", artist:"Blender", date:"2021", duration:"36:39", genre:"", cover:"https://i1.sndcdn.com/artworks-Iq2B0PPKKzLOJpIu-r0bAmA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/mixx-057-blender", notes:"" },
+    { id:"mix-56", title:"TOMBOLOMIXX 56", artist:"Malt", date:"2021", duration:"58:22", genre:"Electro", cover:"https://i1.sndcdn.com/artworks-14g4cFuR973wFCQP-P5LhTg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/056-malt", notes:"" },
+    { id:"mix-55", title:"TOMBOLOMIXX 55", artist:"Aeesb", date:"2021", duration:"1:00:25", genre:"House", cover:"https://i1.sndcdn.com/artworks-Vcb8emMMAbX9rvS0-ATfrjQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomix-055-aeesb", notes:"" },
+    { id:"mix-54", title:"TOMBOLOMIXX 54", artist:"Savino", date:"2021", duration:"2:03:50", genre:"Psych", cover:"https://i1.sndcdn.com/artworks-cy2HvRvP3wzRJaqg-mymGRw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/podcast-toumbolo", notes:"" },
+    { id:"mix-53", title:"TOMBOLOMIXX 53", artist:"Materia Hache", date:"2021", duration:"40:58", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-Nx62KVzfuEOXMg6P-T6vZ9g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/materiahache-tombolo", notes:"" },
+    { id:"mix-52", title:"TOMBOLOMIXX 52", artist:"DJ Simlocked", date:"2021", duration:"41:50", genre:"Electro", cover:"https://i1.sndcdn.com/artworks-5zlEgXoHW43ynsqV-Uz9ljQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/dj-simlocked-tombolo-mixwav", notes:"" },
+    { id:"mix-51", title:"TOMBOLOMIXX 51", artist:"Santiago", date:"2021", duration:"55:47", genre:"Reggae", cover:"https://i1.sndcdn.com/artworks-WLLhStNnbGRWrHI8-sm6IPA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/santi-mix-1", notes:"" },
+    { id:"mix-50", title:"TOMBOLOMIXX 50", artist:"Antpuke", date:"2021", duration:"1:00:13", genre:"Electronic", cover:"https://i1.sndcdn.com/artworks-Dyn2nWMPK3aPVO5R-hs0ttw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-053-antpuke", notes:"" },
+    { id:"mix-49", title:"TOMBOLOMIXX 49", artist:"You_El", date:"2021", duration:"1:04:16", genre:"Cosmic Disco", cover:"https://i1.sndcdn.com/artworks-yGYn0Ym13yjTd5u5-YxkrLg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/youel-tombolomixx", notes:"" },
+    { id:"mix-48", title:"TOMBOLOMIXX 48", artist:"Victor Reyes", date:"2021", duration:"1:08:05", genre:"Electro", cover:"https://i1.sndcdn.com/artworks-LGWyz5GOQ9ygkMAc-tVdoRg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/victor-reyes", notes:"" },
+    { id:"mix-47", title:"TOMBOLOMIXX 47", artist:"Frinda di Lanco", date:"2021", duration:"1:12:50", genre:"Progressive", cover:"https://i1.sndcdn.com/artworks-hjRR1KLamhVy2HdK-1tzycA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-047-frinda-di-franco", notes:"" },
+    { id:"mix-46", title:"TOMBOLOMIXX 46", artist:"DJ Feet", date:"2021", duration:"1:09:57", genre:"Hip-hop & Rap", cover:"https://i1.sndcdn.com/artworks-wvJsTw7O4zosQ1yp-6us6dg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/dj-feet-tombolomixx", notes:"" },
+    { id:"mix-45", title:"TOMBOLOMIXX 45", artist:"KSETDEX", date:"2021", duration:"56:56", genre:"Jungle", cover:"https://i1.sndcdn.com/artworks-Sy2rpTHT71TGrNAc-9W8NRA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-045-ksetdex", notes:"" },
+    { id:"mix-44", title:"TOMBOLOMIXX 44", artist:"Vinski", date:"2021", duration:"49:21", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-Wy1lImnpKGomAs6p-yIK5oA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomix-vinski", notes:"" },
+    { id:"mix-43", title:"TOMBOLOMIXX 43", artist:"Dee Jay Alicia", date:"2021", duration:"1:01:18", genre:"Soulful House", cover:"https://i1.sndcdn.com/artworks-RMykqiPfccQytUuT-ylA35A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-043-deejay-alicia", notes:"" },
+    { id:"mix-42", title:"TOMBOLOMIXX 42", artist:"Pick A Piper", date:"2021", duration:"1:00:00", genre:"Psych", cover:"https://i1.sndcdn.com/artworks-D8rBghBeBkfPz9Rz-yNDqRg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/pick-a-piper-tombolo-live-mix", notes:"" },
+    { id:"mix-41", title:"TOMBOLOMIXX 41", artist:"Tahinii", date:"2021", duration:"56:34", genre:"Park", cover:"https://i1.sndcdn.com/artworks-yiU3AmydRiMz0Et4-vcqS5Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-042-tahinii", notes:"" },
+    { id:"mix-40", title:"TOMBOLOMIXX 40", artist:"DJ LOSER", date:"2021", duration:"30:40", genre:"RAVE", cover:"https://i1.sndcdn.com/artworks-4PnfbVzTiAbA87yR-9zUyeQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/djlosermix-january2021", notes:"" },
+    { id:"mix-39", title:"TOMBOLOMIXX 39", artist:"Stefan Traj", date:"2021", duration:"57:06", genre:"Microhouse", cover:"https://i1.sndcdn.com/artworks-SRLvR5OS2VyJ4JV0-f0V1Jw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/stefan-traj-tombolo", notes:"" },
+    { id:"mix-38", title:"TOMBOLOMIXX 38", artist:"Toyacoyah", date:"2021", duration:"1:04:08", genre:"Drum & Bass", cover:"https://i1.sndcdn.com/artworks-TENoVowkv6ezZ655-zt3ndw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/toyacoyah", notes:"" },
+    { id:"mix-36", title:"TOMBOLOMIXX 36", artist:"Jimbo Frank", date:"2020", duration:"57:16", genre:"House", cover:"https://i1.sndcdn.com/artworks-M4iUF3JAzscj6iSb-yPrRjQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/jimbo-frank-x-tombolo", notes:"" },
+    { id:"mix-35", title:"TOMBOLOMIXX 35", artist:"Ivy Barkakati", date:"2020", duration:"1:10:36", genre:"House", cover:"https://i1.sndcdn.com/artworks-ESn2clk8X8OMzzGN-yqUUaQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-035-ivy-barkakati", notes:"" },
+    { id:"mix-34", title:"TOMBOLOMIXX 34", artist:"Mr. Ho", date:"2020", duration:"1:03:31", genre:"Breaks", cover:"https://i1.sndcdn.com/artworks-Ccv6pUWGXWwHGkmE-uly99Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-034-mr-ho", notes:"" },
+    { id:"mix-33", title:"TOMBOLOMIXX 33", artist:"DJ Marcelle / Another Nice Mess", date:"2020", duration:"1:01:36", genre:"", cover:"https://i1.sndcdn.com/artworks-5l3pxXLHvzfx2hpf-sKj2SQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-032-dj-marcelle", notes:"" },
+    { id:"mix-32", title:"TOMBOLOMIXX 32", artist:"Arthur More", date:"2020", duration:"1:00:56", genre:"World", cover:"https://i1.sndcdn.com/artworks-6glwchX7eP5ybmVu-dbSPfQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/201201_0138mp3", notes:"" },
+    { id:"mix-31", title:"TOMBOLOMIXX 31", artist:"Tomu DJ", date:"2020", duration:"1:00:00", genre:"Hip-hop & Rap", cover:"https://i1.sndcdn.com/artworks-E2BHWmXu0sDnXOXp-uQ7VhA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-031-tomu-dj", notes:"" },
+    { id:"mix-30", title:"TOMBOLOMIXX 30", artist:"Sr Melles", date:"2020", duration:"1:00:05", genre:"", cover:"https://i1.sndcdn.com/artworks-R8vyzmT8TzDJRVON-831jBA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-030-sr-melles", notes:"" },
+    { id:"mix-29", title:"TOMBOLOMIXX 29", artist:"Papito Pepito", date:"2020", duration:"56:18", genre:"Internet", cover:"https://i1.sndcdn.com/artworks-Hdt0N5Lh6oc17B6J-5ilZeQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/papito-pepito-for-tombolo", notes:"" },
+    { id:"mix-28", title:"TOMBOLOMIXX 28", artist:"Pascale Project", date:"2020", duration:"1:01:15", genre:"Space", cover:"https://i1.sndcdn.com/artworks-zbUvSeNjwIyydz7R-pGlRzA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-028-pascale-project", notes:"" },
+    { id:"mix-27", title:"TOMBOLOMIXX 27", artist:"DJ Lynce", date:"2020", duration:"1:03:35", genre:"Breakbeat", cover:"https://i1.sndcdn.com/artworks-jE614EN5gq8zCpYl-2FgqoQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-026-dj-lynce", notes:"" },
+    { id:"mix-26", title:"TOMBOLOMIXX 26", artist:"Joan Serinyà AKA John Heaven AKA John Pac", date:"2020", duration:"1:00:50", genre:"House", cover:"https://i1.sndcdn.com/artworks-7YqdHEVIyl7i1HQk-If35cg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/joan-serinya-aka-john-heaven-aka-john-pac-nitsa-mix-final", notes:"" },
+    { id:"mix-25", title:"TOMBOLOMIXX 25", artist:"NAP", date:"2020", duration:"1:19:28", genre:"Dancehall", cover:"https://i1.sndcdn.com/artworks-e8wpWVA2pFyZJNMU-NUekCA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolo-mix-nap-mix", notes:"" },
+    { id:"mix-24", title:"TOMBOLOMIXX 24", artist:"Ascot WW", date:"2020", duration:"1:00:13", genre:"House", cover:"https://i1.sndcdn.com/artworks-iETrVvIIWdBPHQKS-fofLQQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-o24-ascot-ww", notes:"" },
+    { id:"mix-23", title:"TOMBOLOMIXX 23", artist:"Dionaldo", date:"2020", duration:"1:05:47", genre:"Disco", cover:"https://i1.sndcdn.com/artworks-VPE2Oycj1M5eaeHM-t7SNFA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-023-dionaldo", notes:"" },
+    { id:"mix-22", title:"TOMBOLOMIXX 22", artist:"House Of Friends", date:"2020", duration:"1:09:00", genre:"House", cover:"https://i1.sndcdn.com/artworks-rqE3wmNlMksL9PGe-oLnjvw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-022-house-of-friends", notes:"" },
+    { id:"mix-21", title:"TOMBOLOMIXX 21", artist:"Dj Saliva", date:"2020", duration:"1:01:21", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-FzctCJVUWJry3oZt-NAPM9Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/dj-saliva-tombolo", notes:"" },
+    { id:"mix-20", title:"TOMBOLOMIXX 20", artist:"Goyo The Ghoul", date:"2020", duration:"1:01:58", genre:"PHONK", cover:"https://i1.sndcdn.com/artworks-iUuUQ0T8AbAKOYJu-OdefeQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-020-goyo-the-goul", notes:"" },
+    { id:"mix-19", title:"TOMBOLOMIXX 19", artist:"MENEO", date:"2020", duration:"1:11:43", genre:"Latin", cover:"https://i1.sndcdn.com/artworks-UGpQzU3waz5jVYki-5Ofx5w-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-019-meneo", notes:"" },
+    { id:"mix-18", title:"TOMBOLOMIXX 18", artist:"SSS", date:"2020", duration:"31:01", genre:"", cover:"https://i1.sndcdn.com/artworks-vyFGBnW3HXu7qKPT-l4zVYQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-018-sss", notes:"" },
+    { id:"mix-17", title:"TOMBOLOMIXX 17", artist:"Agente Latina", date:"2020", duration:"58:45", genre:"huge", cover:"https://i1.sndcdn.com/artworks-snphmGSdvmnC9WAd-VOGeaQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-017-agente-latina", notes:"" },
+    { id:"mix-16", title:"TOMBOLOMIXX 16", artist:"Daniel Holt", date:"2020", duration:"51:54", genre:"Post punk", cover:"https://i1.sndcdn.com/artworks-WGij27pBzAXi18De-e8eyjA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-016-daniel-holt", notes:"" },
+    { id:"mix-15", title:"TOMBOLOMIXX 15", artist:"Yuzo Iwata", date:"2020", duration:"1:08:11", genre:"Psych", cover:"https://i1.sndcdn.com/artworks-PRCydnahRJY4ahvJ-LZdsrA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-015-yuzo-iwata", notes:"" },
+    { id:"mix-14", title:"TOMBOLOMIXX 14", artist:"Robert Bergman", date:"2020", duration:"1:00:58", genre:"Acid", cover:"https://i1.sndcdn.com/artworks-1HRdJdHxcmUdCelb-UA7nQw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-014-robert-bergman", notes:"" },
+    { id:"mix-13", title:"TOMBOLOMIXX 13", artist:"Omega III", date:"2020", duration:"1:01:49", genre:"Jungle", cover:"https://i1.sndcdn.com/artworks-fSKCzvX8y1kQhpkq-5zUwsQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-013-omega-iii", notes:"" },
+    { id:"mix-12", title:"TOMBOLOMIXX 12", artist:"Yung Prado", date:"2020", duration:"59:46", genre:"House", cover:"https://i1.sndcdn.com/artworks-cHfUmekHsXkzJ4Zs-LYHgtQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-014-yung-prado", notes:"" },
+    { id:"mix-11", title:"TOMBOLOMIXX 11", artist:"Darcy Justice", date:"2020", duration:"1:07:16", genre:"Park", cover:"https://i1.sndcdn.com/artworks-gylJOmkZQMBcRHWi-KdSF5g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-011-darcy-justice", notes:"" },
+    { id:"mix-10", title:"TOMBOLOMIXX 10", artist:"Pepperoni DJ", date:"2020", duration:"59:13", genre:"Biarritz", cover:"https://i1.sndcdn.com/artworks-nMD2pPDu1Ozqdh0o-huKmCA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-pepperoni-dj", notes:"" },
+    { id:"mix-9", title:"TOMBOLOMIXX 9", artist:"Bergsonist", date:"2020", duration:"1:01:55", genre:"", cover:"https://i1.sndcdn.com/artworks-4trAzxtfacwzMv0K-zaa40g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-009-bergsonist", notes:"" },
+    { id:"mix-8", title:"TOMBOLOMIXX 8", artist:"Arrogance Arrogance", date:"2020", duration:"59:41", genre:"Alternative Rock", cover:"https://i1.sndcdn.com/artworks-LUBxh9K4Hi6rxJiw-7b9hGA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-008-arrogance-arrogance", notes:"" },
+    { id:"mix-7", title:"TOMBOLOMIXX 7", artist:"Eden Burns", date:"2020", duration:"54:38", genre:"", cover:"https://i1.sndcdn.com/artworks-jXO7e22smFC6jLyl-8ltbzw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-007-eden-burns", notes:"" },
+    { id:"mix-6", title:"TOMBOLOMIXX 6", artist:"Mutant Joe", date:"2020", duration:"1:00:13", genre:"", cover:"https://i1.sndcdn.com/artworks-FtCyZHBoEI2KTzYJ-J0ZIzQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-006-mutant-joe", notes:"" },
+    { id:"mix-5", title:"TOMBOLOMIXX 5", artist:"Egyptian Lover", date:"2020", duration:"59:56", genre:"808 BEAT", cover:"https://i1.sndcdn.com/artworks-UfzC0LjXNmlrYxqz-7D8KLw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx005-egyptian-lover", notes:"" },
+    { id:"mix-4", title:"TOMBOLOMIXX 4", artist:"NAD1A", date:"2020", duration:"59:45", genre:"OUTTERSPACE", cover:"https://i1.sndcdn.com/artworks-7wHSgfUuUdHymPdr-W1Lyzw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-004-nad1a", notes:"" },
+    { id:"mix-3", title:"TOMBOLOMIXX 3", artist:"DJ F", date:"2020", duration:"56:57", genre:"Detroit", cover:"https://i1.sndcdn.com/artworks-XhPDTHyPriMZr8HM-pZpTnA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx003", notes:"" },
+    { id:"mix-2", title:"TOMBOLOMIXX 2", artist:"DJ Gostoso", date:"2020", duration:"1:01:19", genre:"Dancehall", cover:"https://i1.sndcdn.com/artworks-b4Xw5qLvG1OI9Mic-EEm5jA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolomixx-002-dj-gostoso", notes:"" },
+    { id:"mix-1", title:"TOMBOLOMIXX 1", artist:"Estatua de la Libertad", date:"2019", duration:"1:00:49", genre:"Música del mundo", cover:"https://i1.sndcdn.com/artworks-nTzYhW1SzgpKAkJA-NEyyYg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/tombolo-podcast-001-lato-a", notes:"" }
+  ],
+
+  /* ---------------------------------------------------------------
+     3b) LIVE RECORDINGS — grabaciones en directo (categoría "LIVE
+        RECORDINGS" de la pestaña Mixes). Mismo formato que "mixes".
+        Fuente: soundcloud.com/tombololive/sets/live-for-tombolo
+     --------------------------------------------------------------- */
+  livesets: [
+    { id:"live-1196674822", title:"Byron Yeates", artist:"Live @ Tombolo Club", date:"2022", duration:"1:55:30", genre:"Live", cover:"https://i1.sndcdn.com/artworks-fP0pjfnKzHzKR2NT-baLynw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/byron-yeates-tombolo-club", notes:"" },
+    { id:"live-634581750", title:"DJ Dustin", artist:"Live @ Tombolo Club", date:"2019", duration:"2:03:13", genre:"House", cover:"https://i1.sndcdn.com/artworks-000551552523-33x88e-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/dj-dustin-tombolo-madrid", notes:"" },
+    { id:"live-634583226", title:"Textasy", artist:"Live @ Tombolo Club", date:"2019", duration:"3:01:46", genre:"Techno", cover:"https://i1.sndcdn.com/artworks-rCHjsqcdaCDL1Ogl-HfNrvQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/textasy-tombolo-madrid", notes:"" },
+    { id:"live-589637475", title:"Egyptian Lover 808 Live", artist:"Live @ Tombolo Club", date:"28 SEP 2018", duration:"1:52:24", genre:"Electrónica", cover:"https://i1.sndcdn.com/artworks-fWmJsZ6pLZsEvbVr-Md9h7g-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/egyptian-lover-live-tombolo-madrid", notes:"" },
+    { id:"live-2056484944", title:"Fredfades", artist:"Live @ Tombolo Club", date:"2025", duration:"2:18:10", genre:"Live", cover:"https://i1.sndcdn.com/artworks-GR94wwDyyaySotRQ-SEhTkw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/fredfades-tombolo-club", notes:"" },
+    { id:"live-1367396179", title:"DJ Assault Live", artist:"Live @ Tombolo Club", date:"2022", duration:"1:53:22", genre:"Live", cover:"https://i1.sndcdn.com/artworks-HlZyyVS2SMKK6s56-aFzrGA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/dj-assaultwavv2", notes:"" },
+    { id:"live-1388316463", title:"Reptant x Tombolo", artist:"Live @ Tombolo Club", date:"2022", duration:"1:01:55", genre:"Electro", cover:"https://i1.sndcdn.com/artworks-BRkwVd8jtwKIWbqz-ZDK4vg-t500x500.jpg", scUrl:"https://soundcloud.com/radio-relativa/tombolo-w-reptant", notes:"" },
+    { id:"live-813308245", title:"Victor Kiswell live", artist:"Live @ Tombolo Club", date:"16 NOV 2019", duration:"2:34:06", genre:"World", cover:"https://i1.sndcdn.com/artworks-Bh3u5D8W1k7jVb45-Kam4cg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/victor-kiswell-live-tombolo", notes:"" },
+    { id:"live-1357274479", title:"DJ Fett Burger x Tombolo", artist:"Live @ Tombolo Club", date:"2022", duration:"1:30:52", genre:"easy listening", cover:"https://i1.sndcdn.com/artworks-eDA3fcmAdH868jnW-YyP5sA-t500x500.jpg", scUrl:"https://soundcloud.com/radio-relativa/dj-fett-burger-x-tombolo", notes:"" },
+    { id:"live-1013385526", title:"Chico Blanco & 8kitoo", artist:"Live @ Tombolo Club", date:"20 MAR 2021", duration:"1:24:51", genre:"House", cover:"https://i1.sndcdn.com/artworks-mAXZ4zCMb4Od9Vt0-gP0OQw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/chico-blanco-8kitoo-tombolo-tv-20032021", notes:"" },
+    { id:"live-589660851", title:"Pal Joey All night long", artist:"Live @ Tombolo Club", date:"23 NOV 2018", duration:"5:45:54", genre:"House", cover:"https://i1.sndcdn.com/artworks-000503613501-o4q51n-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/pal-joey-all-night-long-tombolo-madrid-1", notes:"" },
+    { id:"live-1364112661", title:"Yung Prado", artist:"Live @ Tombolo Club", date:"2022", duration:"1:08:38", genre:"Live", cover:"https://i1.sndcdn.com/artworks-oL0b3zdtBMM2lHyh-kL72nQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/yung-prado-tombolo-festival", notes:"" },
+    { id:"live-1342477138", title:"OG Juan & La Ind0", artist:"Live @ Tombolo Club", date:"10 SEP 2022", duration:"2:05:36", genre:"klub", cover:"https://i1.sndcdn.com/artworks-K7Q2bMmE2XW25QfG-jHzRYw-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/og-juan-la-ind0-tombolo-club-10092022", notes:"" },
+    { id:"live-955872247", title:"Clara! Y Maoupa Live", artist:"Live @ Tombolo Club", date:"18 ENE 2020", duration:"52:40", genre:"Reggaeton", cover:"https://i1.sndcdn.com/artworks-BaITBdBwrlTteU5z-a1Ff9Q-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/clara-y-maoupa-live-tombolo-18012020", notes:"" },
+    { id:"live-645561222", title:"Orlando Julius & The Heliocentrics | Tombolo", artist:"Live @ Tombolo Club", date:"2019", duration:"1:42:52", genre:"Música del mundo", cover:"https://i1.sndcdn.com/artworks-000560937204-nhcx33-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/orlandojulius", notes:"" },
+    { id:"live-1253019784", title:"Baby Pantera", artist:"Live @ Tombolo Club", date:"2022", duration:"24:36", genre:"Hip-hop & Rap", cover:"https://i1.sndcdn.com/artworks-g2Fpa0eW7EKGw83I-7bQedg-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/baby-pantera-exclusive-mix-4-tombolo", notes:"" },
+    { id:"live-1227614860", title:"Nad1a Live", artist:"Live @ Tombolo Club", date:"05 MAR 2022", duration:"1:33:04", genre:"Live", cover:"https://i1.sndcdn.com/artworks-ub5XqhQoYgRjXIU5-lpTJaQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/nad1a-live-tombolo-club", notes:"" },
+    { id:"live-604307811", title:"Marc Rebillet Live", artist:"Live @ Tombolo Club", date:"25 ENE 2019", duration:"49:28", genre:"R&B & Soul", cover:"https://i1.sndcdn.com/artworks-000551551953-zlur0x-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/marc-rebillet-live-tombolo-madrid", notes:"" },
+    { id:"live-593246931", title:"Ivy Barkakati", artist:"Live @ Tombolo Club", date:"15 MAR 2019", duration:"1:14:29", genre:"Disco", cover:"https://i1.sndcdn.com/artworks-000508100115-pk81x0-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/ivy-barkakati-tombolo-barcelona", notes:"" },
+    { id:"live-1391866336", title:"OG Juan b2b Jan Swam", artist:"Live @ Tombolo Club", date:"2022", duration:"50:15", genre:"Energy", cover:"https://i1.sndcdn.com/artworks-zQuAzvYauJuvv0ef-E7rRUA-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/og-juan-b2b-jan-swam-tombolo-festival", notes:"" },
+    { id:"live-604037403", title:"Rocío (Chica Gang)", artist:"Live @ Tombolo Club", date:"16 MAR 2019", duration:"1:19:47", genre:"Hip hop y Rap", cover:"https://i1.sndcdn.com/artworks-6LchRLO1kGAbG2xc-xbgg8A-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/rocio-chica-gang-tombolo-madrid", notes:"" },
+    { id:"live-636103287", title:"OG JUAN", artist:"Live @ Tombolo Club", date:"10 MAY 2019", duration:"2:02:22", genre:"Trap", cover:"https://i1.sndcdn.com/artworks-000551557230-nro89z-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/og-juan-tombolo-madrid", notes:"" },
+    { id:"live-596388885", title:"Temporex Live | Tombolo Madrid", artist:"Live @ Tombolo Club", date:"2019", duration:"34:42", genre:"Pop", cover:"https://i1.sndcdn.com/artworks-000551552403-2atle1-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/temporex-live-tombolo-madrid", notes:"" },
+    { id:"live-636163275", title:"Aldous RH live", artist:"Live @ Tombolo Club", date:"21 MAY 2019", duration:"35:06", genre:"Pop", cover:"https://i1.sndcdn.com/artworks-000551556591-l339v0-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/aldous-rh-tombolo-madrid", notes:"" },
+    { id:"live-645096342", title:"Juanito Jones", artist:"Live @ Tombolo Club", date:"05 ABR 2019", duration:"1:02:32", genre:"House", cover:"https://i1.sndcdn.com/artworks-000560482305-xw96w2-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/juanito-jones-tombolo-madrid", notes:"" },
+    { id:"live-1669914324", title:"Gudlyfe b2b Cesare b2b OG Juan", artist:"Live @ Tombolo Club", date:"23 SEP 2023", duration:"2:40:44", genre:"House", cover:"https://i1.sndcdn.com/artworks-ZRgYFuKd1ub14K5z-LzCVlQ-t500x500.jpg", scUrl:"https://soundcloud.com/tombololive/gudlyfe-b2b-cesare-b2b-og-juan-tombolo-club-23092023", notes:"" }
+  ],
+
+  /* ---------------------------------------------------------------
+     4) LABEL (SELLO) — catálogo de referencias
+        Campos:
+          id, artist, title
+          cat    : número de catálogo (p.ej. "TMB001")
+          format : "Vinyl 12\"" / "Digital" / "Vinyl + Digital"...
+          year   : año
+          cover  : portada cuadrada (1:1). "" = placeholder
+          buy    : enlace a Bandcamp/Discogs ("" si no hay)
+          notes  : texto descriptivo de la referencia
+          tracklist : lista de cortes (entre [ ] y comillas). [] si no quieres
+     --------------------------------------------------------------- */
+  label: [
+    { id:"tmb-acid-asia", artist:"Paperkraft", title:"Acid Asia", cat:"TOM04", format:"12\" Vinyl + Digital", year:"2024", cover:"https://f4.bcbits.com/img/a0232196234_10.jpg", buy:"https://tombololive.bandcamp.com/album/acid-asia", notes:"", tracklist:["P Spectrum","Acid Asia","Munchakoopas","Cosmic Flower"] },
+    { id:"tmb-tombolo-rumble-vol-i", artist:"Various Artists", title:"Tombolo Rumble Vol. I", cat:"TOM03", format:"Vinyl + Digital", year:"2022", cover:"https://f4.bcbits.com/img/a3198401744_10.jpg", buy:"https://tombololive.bandcamp.com/album/tombolo-rumble-vol-i", notes:"", tracklist:["Unknown Mobile - Bog Juice","DJ Dog - Space Quest (Ozone Mix)","Abdul Raeva - Melbourne Mint","Poly Chain - Temporary Protection"] },
+    { id:"tmb-razones-obvias", artist:"Bazofia & DJ Nerdiboy", title:"Razones Obvias", cat:"TOM02", format:"Vinyl + Digital", year:"2021", cover:"https://f4.bcbits.com/img/a1352879149_10.jpg", buy:"https://tombololive.bandcamp.com/album/razones-obvias", notes:"", tracklist:["Bazofia - No sé","DJ Nerdiboy - Rave ya mind","DJ Nerdiboy & DJ Take Control - Stay Fly","Bazofia - Trastorno Polaroid"] },
+    { id:"tmb-unfamiliar-locations", artist:"Mutant Joe", title:"Unfamiliar Locations", cat:"TOM01", format:"Vinyl + Digital", year:"2021", cover:"https://f4.bcbits.com/img/a4257220204_10.jpg", buy:"https://tombololive.bandcamp.com/album/unfamiliar-locations", notes:"", tracklist:["Big Nine","Ekranoplan Lun","Huh","We Movin Bricks","Strictly Gang Shit (Digital Bonus)"] },
+    { id:"tmb-raw-technique", artist:"ROLAND JONES", title:"RAW TECHNIQUE", cat:"", format:"Cassette + Digital", year:"2017", cover:"https://f4.bcbits.com/img/a0822011951_10.jpg", buy:"https://tombololive.bandcamp.com/album/raw-technique", notes:"", tracklist:["Side A","Side B"] }
+  ],
+
+  /* ---------------------------------------------------------------
+     5) SHOP (TIENDA) — catálogo que enlaza a Bandcamp
+        El botón / la tarjeta abre el enlace de "buy" (tu Bandcamp).
+        Campos:
+          id, name, artist
+          type  : "Vinyl" / "Merch" / "Print" / "Digital"...
+          price : texto libre, p.ej. "18 €"
+          image : imagen cuadrada (1:1). "" = placeholder
+          buy   : enlace de compra (Bandcamp). "" = sin enlace
+          soldout : true si está agotado (muestra etiqueta SOLD OUT)
+     --------------------------------------------------------------- */
+  shop: [
+    { id:"sh-tmb001", name:"Primeras Luces — TMB001", artist:"Various Artists", type:"Vinyl 12\"", price:"18 €", image:"", buy:"https://tombolo.bandcamp.com", soldout:false },
+    { id:"sh-tmb002", name:"Hormigón EP — TMB002",    artist:"Nørd",            type:"Vinyl 12\"", price:"16 €", image:"", buy:"https://tombolo.bandcamp.com", soldout:true  },
+    { id:"sh-tee",    name:"Logo Tee (negro)",        artist:"Tombolo",         type:"Merch",      price:"24 €", image:"", buy:"https://tombolo.bandcamp.com", soldout:false },
+    { id:"sh-tote",   name:"Tote Bag",                artist:"Tombolo",         type:"Merch",      price:"14 €", image:"", buy:"https://tombolo.bandcamp.com", soldout:false },
+    { id:"sh-print",  name:"Cartel RESONANCE (print)",artist:"Tombolo",         type:"Print A2",   price:"20 €", image:"", buy:"https://tombolo.bandcamp.com", soldout:false }
+  ],
+
+  /* ---------------------------------------------------------------
+     6) ABOUT — texto editable.
+        Cada elemento del array es un párrafo. Añade o quita párrafos
+        libremente. El primero se muestra más grande (intro).
+     --------------------------------------------------------------- */
+  about: [
+    "Since 2018, Tombolo has been quietly contributing to Madrid's underground music scene (and occasionally beyond), curating parties, releasing records and sharing music we genuinely believe deserves to be heard!",
+    "A platform for everybody. Weird is cool, come say hi!"
+  ],
+
+  /* ---------------------------------------------------------------
+     6b) HOME — MURO DE FOTOS Y DIBUJOS (estilo Public Records)
+        Es el collage de la portada. Cada elemento es una foto tuya
+        o un dibujo tuyo. Se colocan en un muro tipo mosaico.
+        Campos:
+          kind  : "photo" (foto, con marco) o "drawing" (dibujo, sin
+                  marco, ligeramente girado tipo pegatina)
+          src   : ruta de la imagen, p.ej. "img/foto-club-01.jpg".
+                  Déjalo "" para ver un hueco marcado (FOTO/DIBUJO).
+          ratio : proporción del hueco cuando aún no hay imagen
+                  (p.ej. "4/5", "1/1", "3/4", "4/3"). Con imagen real
+                  se usa su proporción natural y este campo se ignora.
+        Para AÑADIR: copia una línea { ... }. Para QUITAR: bórrala.
+        Mezcla fotos y dibujos al gusto; el orden es el que ves aquí.
+     --------------------------------------------------------------- */
+  homeGallery: [
+    { kind:"photo",   src:"img/foto-club-01.jpg", ratio:"16/10" },
+    { kind:"drawing", src:"", ratio:"1/1" },
+    { kind:"photo",   src:"img/foto-club-02.jpg", ratio:"4/3" },
+    { kind:"photo",   src:"", ratio:"3/4" },
+    { kind:"drawing", src:"", ratio:"1/1" },
+    { kind:"photo",   src:"", ratio:"4/3" },
+    { kind:"photo",   src:"", ratio:"3/4" },
+    { kind:"drawing", src:"", ratio:"1/1" },
+    { kind:"photo",   src:"", ratio:"1/1" },
+    { kind:"photo",   src:"", ratio:"4/5" },
+    { kind:"drawing", src:"", ratio:"1/1" },
+    { kind:"photo",   src:"", ratio:"4/3" }
+  ],
+
+  /* ---------------------------------------------------------------
+     7) DOODLES (DIBUJOS DISPERSOS)
+        Tus dibujos aparecen "sueltos" por la web, con una pequeña
+        animación. Son decorativos (no se pueden clicar).
+
+        Cómo añadir TUS dibujos:
+          1. Guarda el dibujo como PNG con FONDO TRANSPARENTE
+             (recomendado) en la carpeta /img.
+          2. Añade un bloque { ... } aquí con:
+               src    : ruta del dibujo, p.ej. "img/dibujo-estrella.png"
+                        (déjalo "" para ver un dibujo DEMO de ejemplo)
+               page   : en qué sección sale. Usa "home","events","mixes",
+                        "label","shop","about", o "all" (en todas).
+               top    : posición vertical (% desde arriba), p.ej. "30%"
+               left   : posición horizontal (% desde la izquierda)
+               w      : ancho en píxeles, p.ej. 110
+               rotate : inclinación en grados, p.ej. -8
+               mobile : false para ocultarlo en móvil (recomendado en
+                        dibujos grandes); true (o quítalo) para mostrarlo.
+
+        Consejo: colócalos en los MÁRGENES / zonas con hueco para que no
+        tapen el texto. Puedes poner los que quieras.
+     --------------------------------------------------------------- */
+  doodles: [
+    // Pendiente: aquí irán TUS dibujos. Cuando me pases los PNG (fondo transparente),
+    // añado una línea por dibujo con su posición, p.ej.:
+    //   { src:"img/dibujo-estrella.png", page:"home", top:"13%", left:"86%", w:92, rotate:-8, mobile:false },
+    // (page: "home" / "events" / "mixes" / "label" / "about" / "all")
+  ]
+};
+</script>
+
+
+<!-- ===================================================================================
+     ███  MOTOR DE LA WEB  ███  (no necesitas tocar esto para editar contenido)
+     =================================================================================== -->
+<script>
+/* ---------------------------------------------------------------
+   COLOR POR SECCIÓN  ·  edita aquí los acentos de cada apartado.
+   Cada sección "pinta" la web con su color (cabeceras, hovers...).
+   --------------------------------------------------------------- */
+const THEME = {
+  '':       '#1E2DFF',  // Home   — azul Klein
+  events:   '#1E2DFF',  // Events — azul Klein
+  mixes:    '#FF2E7E',  // Mixes  — rosa
+  label:    '#16B866',  // Label  — verde
+  shop:     '#FF5C00',  // Shop   — naranja
+  about:    '#7A4DFF',  // About  — violeta
+};
+
+/* ---------------------------------------------------------------
+   IDIOMA (ES/EN)  ·  textos de interfaz en los dos idiomas.
+   El contenido (eventos, mixes, sello) no se traduce; el texto de
+   About sí (ver DATA.about con sus claves es/en).
+   --------------------------------------------------------------- */
+const I18N = {
+  es: {
+    upcoming:"Próximos", archive:"Archivo", upcomingBadge:"Próximo", pastBadge:"Pasado",
+    eventsCount:n=>`${n} eventos`, releasesCount:n=>`${n} referencias`,
+    date:"Fecha", city:"Ciudad", venue:"Lugar", lineup:"Line-up",
+    duration:"Duración", genre:"Género", cat:"Catálogo", format:"Formato", year:"Año", tracklist:"Tracklist",
+    tickets:"Entradas →", pastEvent:"Evento finalizado", viewRA:"Ver en Resident Advisor ↗",
+    viewSC:"Ver en SoundCloud ↗", buyListen:"Comprar / Escuchar →", contact:"Contacto & redes",
+    heroLead:"A veces promotora, a veces booker, a veces sello — siempre tu amigo. Fotos, carteles y ruido desde Madrid.",
+    marquee:["Nos vemos en el club"], aboutMeta:"est. 2018 · Madrid",
+    nf1:"No encontramos eso.", nf2:"Volver al inicio"
+  },
+  en: {
+    upcoming:"Upcoming", archive:"Archive", upcomingBadge:"Upcoming", pastBadge:"Past",
+    eventsCount:n=>`${n} events`, releasesCount:n=>`${n} releases`,
+    date:"Date", city:"City", venue:"Venue", lineup:"Line-up",
+    duration:"Length", genre:"Genre", cat:"Catalogue", format:"Format", year:"Year", tracklist:"Tracklist",
+    tickets:"Tickets →", pastEvent:"Past event", viewRA:"View on Resident Advisor ↗",
+    viewSC:"View on SoundCloud ↗", buyListen:"Buy / Listen →", contact:"Contact & social",
+    heroLead:"Contributing to the electronic music scene of the city!",
+    marquee:["See you at the club"], aboutMeta:"est. 2018 · Madrid"
+    ,nf1:"We couldn't find that.", nf2:"Back to home"
+  }
+};
+const LANG = 'en';   // sitio en inglés
+const t = k => I18N[LANG][k];
+
+/* Categoría activa en la pestaña Mixes: 'tombolomixx' | 'live' */
+let mixCat = 'tombolomixx';
+function setMixCat(c){
+  mixCat = c;
+  $app.innerHTML = viewMixes();
+  renderDoodles('mixes');
+}
+
+const $app = document.getElementById('app');
+const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const find = (list, id) => DATA[list].find(x => x.id === id);
+
+function art(image, label, cls){
+  const c = cls ? ' '+cls : '';
+  if(image) return `<div class="art${c}"><img src="${esc(image)}" alt="${esc(label)}" loading="lazy"></div>`;
+  return `<div class="art${c}"><div class="ph"><span>SUSTITUIR<br>IMAGEN<br>${esc(label)}</span></div></div>`;
+}
+function mediaImg(image, label, ratio){
+  if(image) return `<img src="${esc(image)}" alt="${esc(label)}" loading="lazy">`;
+  return `<div class="ph" style="aspect-ratio:${ratio}"><span>SUSTITUIR IMAGEN<br>${esc(label)}</span></div>`;
+}
+/* Dibujos DEMO (se usan cuando un doodle tiene src:"" para que veas el
+   efecto). Sustitúyelos poniendo la ruta de tus PNG en DATA.doodles. */
+const DOODLE_DEMO = [
+  /* destello / chispa (4 puntas) */
+  `<svg viewBox="0 0 100 100"><path d="M50 5C55 33 67 45 95 50C67 55 55 67 50 95C45 67 33 55 5 50C33 45 45 33 50 5Z" fill="#FFC400" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></svg>`,
+  /* carita sonriente */
+  `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#FF4438" stroke="var(--ink)" stroke-width="5"/><circle cx="37" cy="43" r="5.5" fill="var(--ink)"/><circle cx="63" cy="43" r="5.5" fill="var(--ink)"/><path d="M32 60 Q50 78 68 60" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/></svg>`,
+  /* estrella torcida (5 puntas) */
+  `<svg viewBox="0 0 100 100"><path d="M50 6 L61 38 L95 39 L68 60 L78 93 L50 73 L22 93 L32 60 L5 39 L39 38 Z" fill="#1E2DFF" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></svg>`,
+  /* garabato ondulado */
+  `<svg viewBox="0 0 110 60"><path d="M6 40 C16 6 32 6 40 32 C46 52 56 54 62 34 C68 12 84 10 104 36" fill="none" stroke="#16B866" stroke-width="8" stroke-linecap="round"/></svg>`,
+  /* rayo */
+  `<svg viewBox="0 0 100 100"><path d="M58 5 L26 55 L46 55 L38 95 L76 40 L54 40 L64 5 Z" fill="#FFC400" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></svg>`,
+  /* flor margarita */
+  `<svg viewBox="0 0 100 100"><g stroke="var(--ink)" stroke-width="5"><circle cx="50" cy="27" r="15" fill="#FF2E7E"/><circle cx="73" cy="50" r="15" fill="#FF2E7E"/><circle cx="50" cy="73" r="15" fill="#FF2E7E"/><circle cx="27" cy="50" r="15" fill="#FF2E7E"/><circle cx="50" cy="50" r="13" fill="#FFC400"/></g></svg>`,
+];
+
+/* Pinta los dibujos dispersos de la sección actual */
+function renderDoodles(section){
+  const list = (DATA.doodles||[]).filter(d => d.page==='all' || d.page===section);
+  if(!list.length) return;
+  const layer = document.createElement('div');
+  layer.className = 'doodle-layer';
+  layer.innerHTML = list.map((d,i)=>{
+    const inner = d.src ? `<img src="${esc(d.src)}" alt="">` : DOODLE_DEMO[i % DOODLE_DEMO.length];
+    const hide = (d.mobile===false) ? ' hide-mobile' : '';
+    return `<div class="doodle${hide}" style="top:${esc(d.top)};left:${esc(d.left)};width:${parseInt(d.w)||100}px;
+      --rot:${parseFloat(d.rotate)||0}deg;animation-delay:${i*0.12}s, ${0.55+i*0.12}s">${inner}</div>`;
+  }).join('');
+  $app.appendChild(layer);
+}
+
+function scIframe(url, big){
+  const h = big ? 300 : 166, visual = big ? 'true' : 'false';
+  const color = (THEME[location.hash.replace(/^#\/?/, '').split('/')[0]] || '#1E2DFF').replace('#','%23');
+  const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}`
+            + `&color=${color}&auto_play=false&hide_related=true&show_comments=false`
+            + `&show_user=true&show_reposts=false&visual=${visual}`;
+  return `<div class="sc-embed"><iframe height="${h}" scrolling="no" frameborder="no" allow="autoplay" src="${src}"></iframe></div>`;
+}
+
+/* =========================== VISTAS =========================== */
+function viewHome(){
+  /* --- Frases de la marquesina (traducidas en I18N[LANG].marquee). --- */
+  const MARQUEE = t('marquee');
+  /* Logo de Tombolo (dos figuras + ojos + aro) — versión vectorial en blanco.
+     Aproximación del logo real; si tienes el SVG/PNG original lo sustituimos. */
+  const MARK = `<svg class="mq-logo" viewBox="0 0 200 150" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 92 C24 84 30 76 40 80 C48 50 86 42 104 62 C116 74 110 96 92 96"/><path d="M90 94 C84 104 74 106 72 112"/><circle cx="60" cy="112" r="16"/><path d="M92 96 C104 48 152 46 172 76 C186 98 168 118 146 110 C150 126 156 138 170 148"/><circle cx="66" cy="72" r="12" fill="currentColor" stroke="none"/><circle cx="130" cy="82" r="12" fill="currentColor" stroke="none"/><circle cx="70" cy="74" r="3.6" fill="var(--accent)" stroke="none"/><circle cx="134" cy="84" r="3.6" fill="var(--accent)" stroke="none"/></svg>`;
+  const unit = MARQUEE.map(t=>`${MARK}<span>${esc(t)}</span>`).join('');
+  const ticker = unit.repeat(6);
+  /* Muro de fotos + dibujos (estilo Public Records), repartido en columnas
+     que se mueven a distinta velocidad al hacer scroll (parallax). */
+  const itemHTML = (it,i)=>{
+    if(it.kind==='drawing'){
+      const rot=[-5,4,-3,6,-4,5][i%6];
+      const inner = it.src ? `<img src="${esc(it.src)}" alt="">` : `<div class="ph" style="aspect-ratio:${esc(it.ratio||'1/1')}"><span>DIBUJO<br>(sustituir)</span></div>`;
+      return `<div class="g-item g-drawing" style="transform:rotate(${rot}deg)">${inner}</div>`;
+    }
+    const inner = it.src ? `<img src="${esc(it.src)}" alt="" loading="lazy">` : `<div class="ph" style="aspect-ratio:${esc(it.ratio||'1/1')}"><span>FOTO<br>(sustituir)</span></div>`;
+    return `<div class="g-item g-photo">${inner}</div>`;
+  };
+  const nCols = window.innerWidth<=640 ? 2 : (window.innerWidth<=1000 ? 3 : 4);
+  const speeds = [0.04, 0.14, 0.07, 0.11];            // velocidad de parallax por columna
+  const cols = Array.from({length:nCols}, ()=>[]);
+  (DATA.homeGallery||[]).forEach((it,i)=> cols[i % nCols].push(itemHTML(it,i)) );
+  const galleryHTML = cols.map((items,c)=>
+    `<div class="g-col" data-speed="${window.innerWidth<=640 ? 0 : speeds[c%speeds.length]}">${items.join('')}</div>`
+  ).join('');
+  return `<div class="view">
+    <div class="wrap">
+      <section class="home-intro">
+        <h2 class="hero-logo">Tombolo<span class="b">●</span></h2>
+        <div class="hero-tag">Madrid, <em>since 2018</em></div>
+        <p class="lead">${t('heroLead')}</p>
+      </section>
+      <div class="gallery-wall">${galleryHTML}</div>
+    </div>
+    <div class="marquee"><div>${ticker}${ticker}</div></div>
+  </div>`;
+}
+
+function viewEvents(){
+  const upcoming = DATA.events.filter(e=>!e.past);
+  const past = DATA.events.filter(e=>e.past);
+  const cardOf = e => `
+    <a class="card poster" href="#/events/${esc(e.id)}">
+      ${art(e.image, e.title)}
+      <div class="body">
+        <div class="t">${esc(e.title)}</div>
+        <div class="s">${esc(e.date)} · ${esc(e.city)}</div>
+        <div class="row"><span>${esc(e.venue)}</span><span class="badge">${e.past?t('pastBadge'):t('upcomingBadge')}</span></div>
+      </div>
+    </a>`;
+  const ordered = upcoming.concat(past);
+  return `<div class="view"><div class="wrap-wide"><section class="section">
+    <div class="section-head"><div><h1>Events</h1></div></div>
+    <div class="grid events">${ordered.map(cardOf).join('')}</div>
+  </section></div></div>`;
+}
+
+function viewEventDetail(id){
+  const e = find('events', id);
+  if(!e) return notFound();
+  const p = DATA.picks && DATA.picks[e.id];
+  const pick = p ? `<div class="ra-pick">
+        <span class="lbl">RA Pick</span>
+        <p class="blurb">${esc(p.blurb)}</p>
+      </div>` : '';
+  const tickets = (!e.past && e.ticket)
+    ? `<div class="btn-row"><a class="btn" href="${esc(e.ticket)}" target="_blank" rel="noopener">${t('tickets')}</a></div>`
+    : (e.past && e.ticket
+        ? `<div class="btn-row"><span class="meta" style="align-self:center">${t('pastEvent')}</span><a class="btn ghost" href="${esc(e.ticket)}" target="_blank" rel="noopener">${t('viewRA')}</a></div>`
+        : (e.past ? `<div class="meta">${t('pastEvent')}</div>` : ''));
+  return `<div class="view"><div class="wrap"><section class="section">
+    <a class="back" href="#/events">← Events</a>
+    <div class="detail">
+      <div class="media">${mediaImg(e.image, e.title, '3/4')}</div>
+      <div class="info">
+        <h1>${esc(e.title)}</h1>
+        <div class="sub">${esc(e.city)} · ${esc(e.date)}</div>
+        <dl>
+          <dt>${t('date')}</dt><dd>${esc(e.date)}</dd>
+          <dt>${t('city')}</dt><dd>${esc(e.city)}</dd>
+          <dt>${t('venue')}</dt><dd>${esc(e.venue)}</dd>
+          <dt>${t('lineup')}</dt><dd>${e.lineup.map(esc).join(' · ')}</dd>
+        </dl>
+        ${pick}
+        <div class="copy">${esc(e.summary)}</div>
+        ${tickets}
+      </div>
+    </div>
+  </section></div></div>`;
+}
+
+function viewMixes(){
+  const cardOf = m => `
+    <a class="mixtile" href="#/mixes/${esc(m.id)}" title="${esc(m.title)} — ${esc(m.artist)}">
+      ${m.cover?`<img src="${esc(m.cover)}" alt="${esc(m.title)}" loading="lazy">`:`<div class="ph"><span>${esc(m.title)}</span></div>`}
+      <div class="cap"><span class="mt">${esc(m.title)}</span><span class="ma">${esc(m.artist)}</span></div>
+    </a>`;
+  const list = (mixCat === 'live') ? (DATA.livesets||[]) : DATA.mixes;
+  const cat = (key,label)=>`<span class="mix-cat ${mixCat===key?'on':''}" onclick="setMixCat('${key}')">${label}</span>`;
+  return `<div class="view">
+    <div class="wrap"><section class="section" style="min-height:0;padding-bottom:clamp(16px,3vw,26px)">
+      <div class="section-head"><div><h1>Mixes</h1></div>
+        <a class="btn ghost" href="${esc(DATA.site.soundcloud)}" target="_blank" rel="noopener">SoundCloud ↗</a></div>
+      <h2 class="mix-cats">${cat('tombolomixx','TOMBOLOMIXX')}<span class="mix-sep">/</span>${cat('live','LIVE RECORDINGS')}</h2>
+    </section></div>
+    <div class="grid mixes">${list.map(cardOf).join('')}</div>
+    <div style="height:clamp(30px,6vw,60px)"></div>
+  </div>`;
+}
+
+function viewMixDetail(id){
+  const m = find('mixes', id) || (DATA.livesets||[]).find(x => x.id === id);
+  if(!m) return notFound();
+  return `<div class="view"><div class="wrap"><section class="section">
+    <a class="back" href="#/mixes">← Mixes</a>
+    <div class="detail">
+      <div class="media">${mediaImg(m.cover, m.title, '1/1')}</div>
+      <div class="info">
+        <h1>${esc(m.title)}</h1>
+        <div class="sub">${esc(m.artist)} · ${esc(m.date)}</div>
+        <dl>
+          <dt>${t('duration')}</dt><dd>${esc(m.duration)}</dd>
+          <dt>${t('genre')}</dt><dd>${esc(m.genre)}</dd>
+        </dl>
+        <div class="copy dim">${esc(m.notes)}</div>
+        ${scIframe(m.scUrl, true)}
+        <div class="btn-row" style="margin-top:16px"><a class="btn ghost" href="${esc(m.scUrl || DATA.site.soundcloud)}" target="_blank" rel="noopener">${t('viewSC')}</a></div>
+      </div>
+    </div>
+  </section></div></div>`;
+}
+
+function viewLabel(){
+  const cardOf = r => `
+    <a class="card" href="#/label/${esc(r.id)}">
+      ${art(r.cover, r.cat)}
+      <div class="body">
+        <div class="t">${esc(r.artist)}</div>
+        <div class="s">${esc(r.title)}</div>
+        <div class="row"><span class="badge">${esc(r.cat)}</span><span>${esc(r.format)}</span></div>
+      </div>
+    </a>`;
+  return `<div class="view"><div class="wrap"><section class="section">
+    <div class="section-head"><div><h1>Label</h1></div></div>
+    <div class="grid label">${DATA.label.map(cardOf).join('')}</div>
+  </section></div></div>`;
+}
+
+function viewLabelDetail(id){
+  const r = find('label', id);
+  if(!r) return notFound();
+  const tl = (r.tracklist && r.tracklist.length)
+    ? `<span class="kicker" style="margin-top:6px">${t('tracklist')}</span>
+       <div class="tracklist">${r.tracklist.map((tk,i)=>`<div class="tr"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${esc(tk)}</span></div>`).join('')}</div>`
+    : '';
+  const buy = r.buy ? `<div class="btn-row" style="margin-top:22px"><a class="btn" href="${esc(r.buy)}" target="_blank" rel="noopener">${t('buyListen')}</a></div>` : '';
+  return `<div class="view"><div class="wrap"><section class="section">
+    <a class="back" href="#/label">← Label</a>
+    <div class="detail">
+      <div class="media">${mediaImg(r.cover, r.cat, '1/1')}</div>
+      <div class="info">
+        <h1>${esc(r.title)}</h1>
+        <div class="sub">${esc(r.artist)}</div>
+        <dl>
+          <dt>${t('cat')}</dt><dd>${esc(r.cat)}</dd>
+          <dt>${t('format')}</dt><dd>${esc(r.format)}</dd>
+          <dt>${t('year')}</dt><dd>${esc(r.year)}</dd>
+        </dl>
+        <div class="copy">${esc(r.notes)}</div>
+        ${tl}
+        ${buy}
+      </div>
+    </div>
+  </section></div></div>`;
+}
+
+function viewShop(){
+  const cardOf = p => `
+    <a class="card" href="${p.buy?esc(p.buy):'#/shop'}" ${p.buy?'target="_blank" rel="noopener"':''}>
+      <div style="position:relative">${art(p.image, p.name)}${p.soldout?'<span class="sold">Sold out</span>':''}</div>
+      <div class="body">
+        <div class="t">${esc(p.name)}</div>
+        <div class="s">${esc(p.artist)}</div>
+        <div class="row"><span class="badge">${esc(p.type)}</span><span class="price">${p.soldout?'—':esc(p.price)}</span></div>
+      </div>
+    </a>`;
+  return `<div class="view"><div class="wrap"><section class="section">
+    <div class="section-head"><div><span class="kicker">04 — Tienda</span><h1>Shop</h1></div>
+      <a class="btn ghost" href="${esc(DATA.site.bandcamp)}" target="_blank" rel="noopener">Bandcamp ↗</a></div>
+    <p style="max-width:60ch;margin-bottom:26px;font-size:13.5px;color:var(--ink-dim)">
+      El pago se gestiona de forma segura en Bandcamp. Pulsa cualquier producto para completar la compra allí.</p>
+    <div class="grid shop">${DATA.shop.map(cardOf).join('')}</div>
+  </section></div></div>`;
+}
+
+/* Banda azul en movimiento con el logo de Tombolo (se usa en About) */
+function marqueeHTML(){
+  const MARK = `<svg class="mq-logo" viewBox="0 0 200 150" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 92 C24 84 30 76 40 80 C48 50 86 42 104 62 C116 74 110 96 92 96"/><path d="M90 94 C84 104 74 106 72 112"/><circle cx="60" cy="112" r="16"/><path d="M92 96 C104 48 152 46 172 76 C186 98 168 118 146 110 C150 126 156 138 170 148"/><circle cx="66" cy="72" r="12" fill="currentColor" stroke="none"/><circle cx="130" cy="82" r="12" fill="currentColor" stroke="none"/><circle cx="70" cy="74" r="3.6" fill="#1E2DFF" stroke="none"/><circle cx="134" cy="84" r="3.6" fill="#1E2DFF" stroke="none"/></svg>`;
+  const unit = t('marquee').map(x=>`${MARK}<span>${esc(x)}</span>`).join('');
+  const ticker = unit.repeat(6);
+  return `<div class="marquee"><div>${ticker}${ticker}</div></div>`;
+}
+
+function viewAbout(){
+  const s = DATA.site;
+  const ig = `<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.86s0 3.6-.07 4.86c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.86.07s-3.6 0-4.86-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.6 2.2 15.2 2.2 12s0-3.6.07-4.86c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52.01-4.76.07-.9.04-1.39.2-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.12.32-.28.81-.32 1.71C3.21 8.48 3.2 8.85 3.2 12s.01 3.52.07 4.76c.04.9.2 1.39.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.12.81.28 1.71.32 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c.9-.04 1.39-.2 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.12-.32.28-.81.32-1.71.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.04-.9-.2-1.39-.32-1.71a2.86 2.86 0 0 0-.69-1.06 2.86 2.86 0 0 0-1.06-.69c-.32-.12-.81-.28-1.71-.32C15.52 4.01 15.15 4 12 4zm0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28zm5.14-2.94a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>`;
+  const sc = `<svg viewBox="0 0 24 24"><path d="M11.5 8.2c-.3 0-.55.04-.79.1V18h8.04c1.79 0 3.25-1.43 3.25-3.2 0-1.77-1.46-3.2-3.25-3.2-.2 0-.4.02-.59.06-.27-2.5-2.4-4.46-5-4.46-.95 0-1.84.27-2.59.73V8.2zm-1.7.92c-.27-.06-.45-.07-.6-.07v8.95h.6V9.12zm-1.4.36c-.2 0-.36.02-.5.06V18h.6V9.55a2.2 2.2 0 0 0-.1-.07zm-1.4.62c-.2 0-.38.04-.5.1V18h.6V10.6a1.6 1.6 0 0 0-.1-.48zm-1.4.3c-.2 0-.38.05-.5.12V18h.6v-7.36a1.4 1.4 0 0 0-.1-.32zm-1.4.7c-.2 0-.38.06-.5.15V18h.6v-6.4a1.2 1.2 0 0 0-.1-.18zM2.3 12.4c-.2 0-.3.1-.3.3v4.9c0 .2.1.4.3.4s.3-.2.3-.4v-4.9c0-.2-.1-.3-.3-.3z"/></svg>`;
+  const bc = `<svg viewBox="0 0 24 24"><path d="M0 18.75l7.7-13.5H24l-7.7 13.5H0z"/></svg>`;
+  const mail = `<svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.5L20 7H4l8 5.5zM4 9v8h16V9l-8 5.5L4 9z"/></svg>`;
+  const fb = `<svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>`;
+  const lines = [
+    s.soundcloud && [sc, "SoundCloud", "@tombololive", s.soundcloud],
+    s.instagram  && [ig, "Instagram", "@tombolo.live", s.instagram],
+    s.bandcamp   && [bc, "Bandcamp", "tombololive.bandcamp.com", s.bandcamp],
+    s.facebook   && [fb, "Facebook", "Tombolo", s.facebook],
+    s.email      && [mail, "Email", s.email, "mailto:"+s.email],
+  ].filter(Boolean).map(([ic,label,val,href])=>`
+    <a class="line" href="${esc(href)}" ${href.startsWith('mailto')?'':'target="_blank" rel="noopener"'}>
+      <span class="ico">${ic}</span>
+      <span><strong>${esc(label)}</strong> — ${esc(val)}</span>
+    </a>`).join('');
+  return `<div class="view">
+    <div class="wrap"><section class="section about-section">
+      <div class="section-head"><div><h1>About</h1></div></div>
+      <div class="about">
+        <div class="prose">${DATA.about.map(p=>`<p>${esc(p)}</p>`).join('')}</div>
+        <div class="contact-block">
+          <h3>${t('contact')}</h3>
+          ${lines}
+        </div>
+      </div>
+    </section></div>
+    ${marqueeHTML()}
+  </div>`;
+}
+
+function notFound(){
+  return `<div class="view"><div class="wrap"><section class="section">
+    <div class="section-head"><h1>404</h1></div>
+    <div class="empty">${t('nf1')} <a href="#/" style="color:var(--accent)">${t('nf2')}</a></div>
+  </section></div></div>`;
+}
+
+/* =========================== ROUTER =========================== */
+function router(){
+  const hash = location.hash.replace(/^#\/?/, '');
+  const [section, id] = hash.split('/');
+
+  // Pinta la web con el color de la sección activa
+  document.documentElement.style.setProperty('--accent', THEME[section] ?? THEME['']);
+
+  let html, active = section || '';
+  switch(section){
+    case '':        location.hash = '#/events'; return;   // sin landing: entra en Events
+    case 'events':  html = id ? viewEventDetail(id) : viewEvents(); break;
+    case 'mixes':   html = id ? viewMixDetail(id)   : viewMixes();  break;
+    case 'label':   html = id ? viewLabelDetail(id) : viewLabel();  break;
+    case 'shop':    location.hash = '#/'; return;  // Shop retirado: redirige a la home
+    case 'about':   html = viewAbout(); break;
+    default:        html = notFound(); active='';
+  }
+  $app.innerHTML = html;
+  renderDoodles(active || 'home');
+  window.scrollTo(0,0);
+
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href') === '#/'+active);
+  });
+  document.getElementById('navLinks').classList.remove('open');
+  setLangUI();
+}
+
+/* Refleja el idioma activo en el botón ES/EN y en <html lang> */
+function setLangUI(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('#langToggle span[data-l]').forEach(sp=>{
+    sp.classList.toggle('on', sp.getAttribute('data-l') === LANG);
+  });
+}
+
+/* ===== Parallax del muro de la home: cada columna se mueve a su ritmo ===== */
+let _pxTick = false;
+function homeParallax(){
+  _pxTick = false;
+  const cols = document.querySelectorAll('.g-col');
+  if(!cols.length) return;
+  const y = window.scrollY;
+  cols.forEach(c=>{
+    const s = parseFloat(c.getAttribute('data-speed')) || 0;
+    c.style.transform = s ? `translate3d(0,${(-y*s).toFixed(1)}px,0)` : '';
+  });
+}
+const _reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* =========================== ARRANQUE =========================== */
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(!_reduceMotion){
+    window.addEventListener('scroll', ()=>{ if(!_pxTick){ _pxTick=true; requestAnimationFrame(homeParallax); } }, {passive:true});
+  }
+  document.getElementById('year').textContent = '2018–2026';
+  const s = DATA.site;
+  document.getElementById('footLinks').innerHTML = [
+    s.soundcloud && `<a href="${s.soundcloud}" target="_blank" rel="noopener">SoundCloud</a>`,
+    s.instagram  && `<a href="${s.instagram}" target="_blank" rel="noopener">Instagram</a>`,
+    s.bandcamp   && `<a href="${s.bandcamp}" target="_blank" rel="noopener">Bandcamp</a>`,
+    s.facebook   && `<a href="${s.facebook}" target="_blank" rel="noopener">Facebook</a>`,
+    s.email      && `<a href="mailto:${s.email}">Email</a>`,
+  ].filter(Boolean).join('');
+  document.getElementById('menuBtn').addEventListener('click', ()=>{
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  router();
+});
+</script>
+</body>
+</html>
